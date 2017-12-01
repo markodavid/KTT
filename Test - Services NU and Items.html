@@ -49,7 +49,23 @@
 
         });
 
+
     </script>
+    <style>
+        thead, tbody { display: block; }
+        thead {
+            display: inline-block;
+            width: 3000px;
+        }
+        tbody {
+            height: 1000px;
+            display: inline-block;
+            width: 1900px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+    </style>
 
     <p><strong>Please complete this form with your short-acting, long-acting and permanent service consultations; numbers of clients who are First Time Users of contraception; as well as&nbsp;items provided.&nbsp;</strong></p>
 
@@ -63,7 +79,7 @@
 
     <div id="tabs-1">
         <table border="0" cellpadding="0" cellspacing="0" width="1670">
-            <tbody>
+            <thead>
             <tr>
                 <td colspan="8" height="19" rowspan="1" style="background-color: rgb(85, 85, 85); border-color: rgb(0, 0, 0);">
                     <h1 style="text-align: center;"><span style="color:#ffffff;"><strong>Data Entry</strong></span></h1>
@@ -74,13 +90,13 @@
                 </td>
             </tr>
             <tr height="19">
-                <td colspan="3" height="19" style="background-color: rgb(51, 153, 204); border-color: rgb(0, 0, 0);">
+                <td colspan="3" height="19" style="background-color: rgb(51, 153, 204); border-color: rgb(0, 0, 0); width: 120px;">
                     <h2 style="text-align: center;"><strong>Services</strong></h2>
                 </td>
-                <td colspan="2" style="background-color: rgb(51, 204, 204); border-color: rgb(0, 0, 0);">
+                <td colspan="2" style="background-color: rgb(51, 204, 204); border-color: rgb(0, 0, 0); width: 120px;">
                     <h2 style="text-align: center;"><strong>Referrals</strong></h2>
                 </td>
-                <td colspan="1" style="background-color: rgb(255, 153, 51); border-color: rgb(0, 0, 0);" width="331">
+                <td colspan="1" style="background-color: rgb(255, 153, 51); border-color: rgb(0, 0, 0); width: 140px;">
                     <h2 style="text-align: center;"><strong>Items Provided to clients</strong></h2>
                 </td>
                 <td colspan="2" rowspan="1" style="background-color: rgb(51, 255, 153); border-color: rgb(0, 0, 0);">
@@ -91,19 +107,21 @@
                 <td colspan="2" style="background-color: rgb(119, 119, 119); border-color: rgb(0, 0, 0);" width="128"><strong><span style="color:#ffffff;">FTUs as % of consultations</span></strong></td>
             </tr>
             <tr height="20">
-                <td height="20" style="background-color: rgb(170, 170, 170);">&nbsp;</td>
-                <td style="background-color: rgb(170, 170, 170);"><strong>0-24</strong></td>
-                <td style="background-color: rgb(170, 170, 170);"><strong>25+</strong></td>
-                <td style="background-color: rgb(170, 170, 170);"><strong>0-24</strong></td>
-                <td style="background-color: rgb(170, 170, 170);"><strong>25+</strong></td>
-                <td style="background-color: rgb(170, 170, 170);">&nbsp;</td>
-                <td style="background-color: rgb(170, 170, 170);"><strong>0-24</strong></td>
-                <td style="background-color: rgb(170, 170, 170);"><strong>25+</strong></td>
-                <td>&nbsp;</td>
-                <td style="background-color: rgb(170, 170, 170);" width="92">&nbsp;</td>
-                <td style="background-color: rgb(170, 170, 170);" width="97"><strong>0-24</strong></td>
-                <td style="background-color: rgb(170, 170, 170);" width="97"><strong>25+</strong></td>
+                <th height="20" style="background-color: rgb(170, 170, 170); width: 177px;">&nbsp;</th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>0-24</strong></th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>25+</strong></th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>0-24</strong></th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>25+</strong></th>
+                <th style="background-color: rgb(170, 170, 170); width: 50px;">&nbsp;</th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>0-24</strong></th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>25+</strong></th>
+                <th>&nbsp;</th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;">&nbsp;</th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>0-24</strong></th>
+                <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>25+</strong></th>
             </tr>
+            </thead>
+            <tbody>
             <tr height="19">
                 <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Contraceptives - Counselling - General</strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="j54Hd4Q6LtQ-BpkvMcVXQgy-val" name="entryfield" title="SRV-Contraceptives - Counselling - General Unknown Gender, 0 - 24" value="[ SRV-Contraceptives - Counselling - General Unknown Gender, 0 - 24 ]" /></strong></td>
