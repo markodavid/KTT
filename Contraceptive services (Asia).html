@@ -1,5 +1,3 @@
-Contraceptive services (Asia)
-
 <div id="tabs">
     <ul>
         <li><a href="#tabs-1">SARC</a></li>
@@ -18,6 +16,7 @@ Contraceptive services (Asia)
         );
 
         $(document).ready(function(){
+            console.log( "Valor:" & $("#j54Hd4Q6LtQ-BpkvMcVXQgy-val").val())
 
             $("#PeDrIurYbaG-BpkvMcVXQgy-val").blur(function () {
 
@@ -49,7 +48,697 @@ Contraceptive services (Asia)
             });
 
 
+            var translate = new Translation();
+            translate.performSetup( function(){
+                $( "#tabs" ).show();
+                $("#totalMsgProcessing").html("0");
+                $("#totalMsgLoading").show();
+                $(".loadingHeader").show();
+                $(".content_i").hide();
+            });
+
+
         });
+        // ==============================================================================================
+        // Translation
+        // ==============================================================================================
+
+        function Translation()
+        {
+            var me = this;
+
+            me._queryURL_User_Language = "../api/me/user-account";
+            me.tabDivTag = $( "#tabs" );
+
+            me.performSetup = function( returnFunc ) {
+
+                $.ajax({
+                    type: "GET"
+                    ,dataType: "json"
+                    ,url: me._queryURL_User_Language
+                    ,async: true
+                    ,success: function( json )
+                    {
+                        // Get ui-locale which is selected from current user
+                        var userUiLocale = json.settings.keyUiLocale;
+                        if( userUiLocale === undefined )
+                        {
+                            userUiLocale = "en";
+                        }
+
+                        // Do UI translation
+                        me.translate( userUiLocale );
+
+                        returnFunc();
+                    }
+                });
+            }
+
+            me.keywords =
+            {
+                // Spanish
+                "es": {
+                 "key1" : "@@@@"
+                ,"key2" : "@@@@"
+                ,"key3" : "@@@@"
+                ,"key4" : "@@@@"
+                ,"key5" : "@@@@"
+                ,"key6" : "@@@@"
+                ,"key7" : "@@@@"
+                ,"key8" : "@@@@"
+                ,"key9" : "@@@@"
+                ,"key10" : "@@@@"
+                ,"key11" : "@@@@"
+                ,"key12" : "@@@@"
+                ,"key13" : "@@@@"
+                ,"key14" : "@@@@"
+                ,"key15" : "Anticonceptivos - Consejería - General"
+                ,"key16" : "Anticonceptivos orales - Consulta"
+                ,"key17" : "Anticonceptivos orales (combinados)"
+                ,"key18" : "Anticonceptivos orales (progestágeno sólo)"
+                ,"key19" : "Anticonceptivos orales (no se puede clasificar)"
+                ,"key20" : "Inyectable - Consulta"
+                ,"key21" : "Productos – Inyectables (1 mes)"
+                ,"key22" : "Inyectables (2 meses)"
+                ,"key23" : "Inyectables (3 meses)"
+                ,"key24" : "Parche / Anillo - Consulta"
+                ,"key25" : "Parche"
+                ,"key26" : "Anillo"
+                ,"key27" : "Condón Masculino - Consulta"
+                ,"key28" : "Condones (masculinos)"
+                ,"key29" : "Condón Femenino - Consulta"
+                ,"key30" : "Condones (femeninos)"
+                ,"key31" : "Masculino / Femenino - No se puede clasifica"
+                ,"key32" : "Diafragma / Tapón cervical - Consulta"
+                ,"key33" : "Diafragma"
+                ,"key34" : "Tapón cervical"
+                ,"key35" : "Espermicidas - Consulta"
+                ,"key36" : "Espermicidas"
+                ,"key37" : "AE - Consejería"
+                ,"key38" : "AE - Consulta"
+                ,"key39" : "AE (progestágeno sólo)"
+                ,"key40" : "EC (combined pills - Yuzpe)"
+                ,"key41" : "AE (DIU 10 años)"
+                ,"key42" : "MBOF - Consulta"
+                ,"key43" : "DIU - Consulta"
+                ,"key44" : "DIU (5 años)"
+                ,"key45" : "DIU (10 años)"
+                ,"key46" : "Consulta - Remoción"
+                ,"key47" : "Implante - Consulta"
+                ,"key48" : "Implante (3 años)"
+                ,"key49" : "Implante (4 años)"
+                ,"key50" : "Implante (5 años)"
+                ,"key51" : "Implante - Remoción"
+                ,"key52" : "AQVF - Consejería"
+                ,"key53" : "AQVF - Consulta"
+                ,"key54" : "AQVF - Manejo - Quirúrgico - Histeroscopia (ESSURE®)"
+                ,"key55" : "AQVF - Manejo - Quirúrgico - Laparoscopia "
+                ,"key56" : "AQVF - Manejo - Quirúrgico - Laparotomía"
+                ,"key57" : "AQVF - Manejo - Quirúrgico - Minilaparotomía "
+                ,"key58" : "AQVF - Manejo - Quirúrgico – Ligadura "
+                ,"key59" : "AQVF - Manejo - Quirúrgico - Reversión"
+                ,"key60" : "AQVF - Manejo - Quirúrgico - seguimiento"
+                ,"key61" : "AQVF - No se puede clasificar"
+                ,"key62" : "AQVM - Consejería"
+                ,"key63" : "AQVM - Consulta"
+                ,"key64" : "AQVM - Manejo - Quirúrgico - Vasectomía incisional"
+                ,"key65" : "AQVM - Manejo - Quirúrgico – Vasectomía sin bisturí "
+                ,"key66" : "AQVM - Manejo - Quirúrgico - Reversión"
+                ,"key67" : "AQVM - Manejo - Quirúrgico - seguimiento"
+                 ,"key68" : "AQVM - No se puede clasificar"
+                ,"key69" : "AQVF/M - No se puede clasificar"
+                ,"Key70" : "AQVF - Manejo - Quirúrgico - Histeroscopia (ESSURE®) (Asia)"
+                ,"key71" : "AQVF - Manejo - Quirúrgico - Laparoscopia  (Asia)"
+                ,"Key72" : "AQVF - Manejo - Quirúrgico - Laparotomía (Asia)"
+                ,"Key73" : "AQVF - Manejo - Quirúrgico - Minilaparotomía  (Asia)"
+                ,"Key74" : "AQVF - Manejo - Quirúrgico – Ligadura  (Asia)"
+                ,"Key75" : "AQVM - Manejo - Quirúrgico - Vasectomía incisional (Asia)"
+                ,"Key76" : "AQVM - Manejo - Quirúrgico – Vasectomía sin bisturí  (Asia)"
+                ,"Key77" : "@@@@"
+                ,"Key78" : "@@@@"
+                ,"Key80" : "@@@@"
+                ,"Key81" : "@@@@"
+                ,"Key82" : "@@@@"
+                ,"Key83" : "@@@@"
+                ,"Key84" : "@@@@"
+                ,"Key85" : "@@@@"
+                }
+                ,"en": {
+                "key1" : "Data Entry "
+                ,"key2" : "Data Validation "
+                ,"key3" : "Direct Services by age group"
+                ,"key4" : "Referrals by age group"
+                ,"key5" : "First Time Users of FP by age group"
+                ,"key6" : ""
+                ,"key7" : "Items provided to clients "
+                ,"key8" : "First Time Users of Family Planning (FTU)"
+                ,"key9" : "FTU proecdures as a percentage of FTU consultations"
+                ,"key10" : "Procedures as a percentage of consultations"
+                ,"key11" : "FTU as a percentage of consultations "
+                ,"key12" : "FTU as a percentage of items provided"
+                ,"key13" : "Items provided as a percentage of consultations"
+                ,"key14" : "Service (white background) or item (orange background)"
+                ,"key15" : "Contraceptives - Counselling - General"
+                ,"key16" : "Oral Contraceptives - Consultation"
+                ,"key17" : "Oral contraceptives (combined)"
+                ,"key18" : "Oral contraceptives (progestogen only)"
+                ,"key19" : "Oral contraceptives (unable to categorize)"
+                ,"key20" : "Injectable - Consultation"
+                ,"key21" : "Injectables (1 month)"
+                ,"key22" : "Injectables (2 month)"
+                ,"key23" : "Injectables (3 month)"
+                ,"key24" : "Patch / Ring - Consultation"
+                ,"key25" : "Patch"
+                ,"key26" : "Ring"
+                ,"key27" : "Male condom - Consultation"
+                ,"key28" : "Condoms (male)"
+                ,"key29" : "Female condom - Consultation"
+                ,"key30" : "Condoms (female)"
+                ,"key31" : "Male / Female condom - unable to categorize"
+                ,"key32" : "Diaphragm / Cervical cap - Consultation"
+                ,"key33" : "Diaphragm"
+                ,"key34" : "Cervical cap"
+                ,"key35" : "Spermicides - Consultation"
+                ,"key36" : "Spermicides"
+                ,"key37" : "EC - Counselling"
+                ,"key38" : "EC - Consultation"
+                ,"key39" : "EC (progestogen only pills)"
+                ,"key40" : "EC (combined pills - Yuzpe)"
+                ,"key41" : "EC (10 year IUD)"
+                ,"key42" : "FAB - Consultation"
+                ,"key43" : "IUD Consultation"
+                ,"key44" : "IUD 5 yr"
+                ,"key45" : "IUD 10 yr"
+                ,"key46" : "IUD removal"
+                ,"key47" : "Implant cons"
+                ,"key48" : "Implant 3"
+                ,"key49" : "Implant 4"
+                ,"key50" : "Implant 5"
+                ,"key51" : "Implant removal"
+                ,"key52" : "FVSC Counselling"
+                ,"key53" : "FVSC Consultation"
+                ,"key54" : "FVSC - Hysteroscopy (ESSURE®)"
+                ,"key55" : "FVSC - Laparoscopy"
+                ,"key56" : "FVSC - Laparotomy"
+                ,"key57" : "FVSC - Minilaparotomy "
+                ,"key58" : "FVSC - Trans vaginal tubal ligation"
+                ,"key59" : "FVSC - Reversal"
+                ,"key60" : "FVSC - follow up"
+                ,"key61" : "FVSC unable to categorize"
+                ,"key62" : "MVSC Counselling"
+                ,"key63" : "MVSC Consultation"
+                ,"key64" : "MVSC - Incisional Vasectomy"
+                ,"key65" : "MVSC - No-scalpel Vasectomy"
+                ,"key66" : "MVSC - Reversal"
+                ,"key67" : "MVSC - follow up"
+                ,"key68" : "MVSC - unable to categorize"
+                ,"key69" : "F/MVSC unable to categorize"
+                ,"Key70" : "FVSC - Hysteroscopy (ESSURE®)"
+                ,"key71" : "FVSC - Laparoscopy"
+                ,"Key72" : "FVSC - Laparotomy"
+                ,"Key73" : "FVSC - Minilaparotomy "
+                ,"Key74" : "FVSC - Trans vaginal tubal ligation"
+                ,"Key75" : "MVSC - Incisional Vasectomy"
+                ,"Key76" : "MVSC - No-scalpel Vasectomy"
+                ,"Key77" : "Intramuscular Depo or all 3 month injectables if unable to disaggregate"
+                ,"Key78" : "Subcutaneous injectables only e.g. SAYANA PRESS"
+                ,"Key80" : "Please complete this form with your short-acting, long-acting and permanent service direct consultations; referrals for consultations; numbers of clients who are First Time Users of modern contraception; as well as items provided. "
+                ,"Key81" : "The form has been designed to demonstrate the relationships between a) consultations and items provided, b) First Time Users and items provided, and c) First Time Users and consultations.  If any of the numbers that are calculated at the end of this form exceed 100, it indicates that there is a problem with the data entered. "
+                ,"Key82" : "1. Because First Time Users must each receive at least one Item to count as a First Time User, the FTU as a % of items column can never exceed 100%. This would indicate that clients are being recorded as FTU without having received a modern method of contraception. "
+                ,"Key83" : "2. First Time User consultations should be a subset of direct service consultations and therefore should always be a lower number.  If FTUs as a % of consultations exceeds 100% this indicates that there is a problem with the data."
+                ,"Key84" : "3. For contraceptive Items that have a one to one relationship to clients, i.e each client receives one item/procedure only (IUD, Implants, VSC), items provided should not exceed consultations. This would indicate items being provided at MA owned clinics without consultations."
+                ,"Key85" : "For service definitions and information about contraceptive items, please see the annexes of the guidelines here: www.xyz"
+            },
+                "fr": {
+                    "key1": "Politique"
+                    ,
+                    "key2": "Parmi les services de SSR suivants, quels sont ceux que votre association a dispensés dans une situation de crise humanitaire au cours de l’année qui vient de s’écouler? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key3": "S'il vous plaît entrer un autre «valeur pour cette sélection."
+                    ,
+                    "key4": "Contraception"
+                    ,
+                    "key5": "Soins pour un avortement sans risque"
+                    ,
+                    "key6": "IST/IAG"
+                    ,
+                    "key7": "VIH"
+                    ,
+                    "key8": "Gynécologie"
+                    ,
+                    "key9": "Obstétrique"
+                    ,
+                    "key10": "Dépistage de violence basée sur le genre"
+                    ,
+                    "key11": "Pédiatrie"
+                    ,
+                    "key12": "Services de conseil spécialisé"
+                    ,
+                    "key13": "Autre"
+                    ,
+                    "key14": "Aucun"
+                    ,
+                    "key15": "Quels types de programmes/initiatives axés sur le genre votre association a-t-elle mis en œuvre au cours de l’année qui vient de s’écouler? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key16": "S'il vous plaît entrer un autre «valeur pour cette sélection."
+                    ,
+                    "key17": "Diversité du genre"
+                    ,
+                    "key18": "Violence basée sur le genre"
+                    ,
+                    "key19": "Renforcement des capacités en genre"
+                    ,
+                    "key20": "Besoins des hommes"
+                    ,
+                    "key21": "Rôle des hommes en matière d’égalité des genres"
+                    ,
+                    "key22": "Suivi et évaluation de programmes relatifs au genre"
+                    ,
+                    "key23": "Soutien aux personnes transgenres"
+                    ,
+                    "key24": "Autonomisation des femmes"
+                    ,
+                    "key25": "Participation des femmes"
+                    ,
+                    "key26": "Droits de la femme dans les cliniques"
+                    ,
+                    "key29": "Votre association a-t-elle mis en œuvre des programmes (plaidoyer, autonomisation, prestation de services d’information, d’éducation à la SSR) auprès de l’un des groupes vulnérables ou démunis suivants au cours de l’année qui vient de s’écouler ? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key30": "Please enter an 'other' value for this selection."
+                    ,
+                    "key31": "Les homosexuels, hommes bisexuels et autres hommes ayant des rapports sexuels avec des hommes"
+                    ,
+                    "key32": "Les personnes intersexuées et autres personnes ayant diverses caractéristiques sexuelles"
+                    ,
+                    "key33": "Les lesbiennes, femmes bisexuelles et autres femmes ayant des rapports sexuels avec des femmes"
+                    ,
+                    "key34": "Les migrants"
+                    ,
+                    "key35": "Les personnes âgées de 50 ans et plus"
+                    ,
+                    "key36": "Les personnes vivant en dessous du seuil de pauvreté national"
+                    ,
+                    "key37": "Les personnes vivant avec le VIH"
+                    ,
+                    "key38": "Les personnes consommateurs de drogues injectables ou non"
+                    ,
+                    "key39": "Les personnes handicapées"
+                    ,
+                    "key40": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key41": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key42": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key43": "Les travailleur(se)s du sexe les autres personnes qui pratiquent le commerce du sexe"
+                    ,
+                    "key44": "Les personnes transgenres et les autres personnes ayant diverses identités/expressions de genre"
+                    ,
+                    "key47": "Votre association a-t-elle déjà eu l’occasion d’utiliser l’outil Inside & Out pour évaluer votre cursus ESI de l’année qui vient de s'écouler?"
+                    ,
+                    "key48": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key49": "Votre association possède-t-elle une  politique écrite de protection de l’enfant ?"
+                    ,
+                    "key50": "Veuillez télécharger un exemplaire de votre évaluation politique de protection de l’enfant"
+                    ,
+                    "key51": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key52": "Veuillez expliquer la raison pour laquelle votre association ne possède pas de politique de protection de l’enfant (en un maximum de 50 mots)."
+                    ,
+                    "key53": "Votre association possède-t-elle une politique écrite relative à l’égalité entre les genres ?"
+                    ,
+                    "key54": "Veuillez expliquer la raison pour laquelle votre association ne possède pas de politique écrite en matière d’égalité entre les genres (en un maximum de 50 mots)."
+                    ,
+                    "key55": "Votre association a-t-elle participé au Fonds mondial de lutte contre le sida, la tuberculose et le paludisme au cours de l’année qui vient de s’écouler? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key56": "Oui, en tant que membre du Mécanisme de coordination pays"
+                    ,
+                    "key57": "Oui, comme agent d’exécution de subsides du Fonds mondial à titre de bénéficiaire principal"
+                    ,
+                    "key58": "Oui, comme agent d’exécution de subsides du Fonds mondial à titre de sous-bénéficiaire"
+                    ,
+                    "key59": "Non, n’y participant pas actuellement bien que le pays soit admissible à recevoir une allocation de fonds"
+                    ,
+                    "key60": "S.O., pays non admissible"
+                    ,
+                    "key61": "Oui, autre, veuillez préciser :"
+                    ,
+                    "key62": "Objectif de développement durable"
+                    ,
+                    "key63": "Votre association a-t-elle poursuivi des activités de plaidoyer visant à influencer le gouvernement pour établir des objectifs au niveau du pays et/ou lui demander des comptes, à savoir les objectifs 3.1, 3.3 et 3.7 (pour l’Objectif de développement durable 3) et/ou l’objectif 5.6 (pour l’Objectif de développement durable 5) au cours de l’année qui vient de s’écouler?"
+                    ,
+                    "key64": "Veuillez décrire les activités de plaidoyer que votre association a entreprises en vue d’influencer le gouvernement pour établir des objectifs au niveau du pays et/ou lui demander des comptes, à savoir les objectifs 3.1, 3.3 et 3.7 et/ou 5.6 et les résultats obtenus (en un maximum de 100 mots)"
+                    ,
+                    "key65": "Mobilisation de ressources"
+                    ,
+                    "key66": "Veuillez remplir le tableau ci-dessous sur les efforts de votre association de collecte de fonds sur le plan local."
+                    ,
+                    "key67": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key68": "Possibilités de financement locales relevées par votre association"
+                    ,
+                    "key69": "Possibilités de financement locales auxquelles l’association a postulé"
+                    ,
+                    "key70": "Demandes de financement locales que votre association s’est vue octroyer"
+                    ,
+                    "key71": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key72": "Ce nombre comprend tous les membres à plein temps, à temps partiel, permanents et temporaires employés par l’Association à TOUS les niveaux (aux sièges, dans les antennes et sur les sites des projets). Les jeunes bénévoles n’en font pas partie. Chaque membre du personnel à temps partiel doit être compté comme un (et non sous forme de fractions)."
+                    ,
+                    "key73": "Personnel de l'Association: Femmes"
+                    ,
+                    "key74": "Personnel de l'Association: Hommes"
+                    ,
+                    "key75": "Personnel de l'Association: personnel qui préfèrent ne pas s’identifier comme hommes ou femmes"
+                    ,
+                    "key76": "Total du personnel"
+                    ,
+                    "key77": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key78": "Le terme comite de direction signifie l'organe de decision sur le plan national de l'Association Membre qui est elu par les membres benevoles ou leurs representants de l'Association Membre en question. Veuilles noter que la mention 'moins de 25 ans' se refere aux individus qui ont moins de 25 ans au moment de l'election du dernier comite de direction."
+                    ,
+                    "key79": "Nombre total de BÉNÉVOLES"
+                    ,
+                    "key80": "Nombre total d’ACTIVISTES"
+                    ,
+                    "key81": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key82": "La plus grande catégorie en ligne"
+                    ,
+                    "key83": "La plus grande catégorie hors-ligne"
+                    ,
+                    "key84": "Total des messages positifs en ligne"
+                    ,
+                    "key85": "Total des messages positifs hors ligne"
+                    ,
+                    "key86": "Email / Newsletter / E-actions"
+                    ,
+                    "key87": "Dépliants / Flyers"
+                    ,
+                    "key88": "Affiches"
+                    ,
+                    "key89": "Théâtre / événement public"
+                    ,
+                    "key90": "Rapport / Brochure"
+                    ,
+                    "key91": "Hotline téléphonique"
+                    ,
+                    "key93": "Facebook"
+                    ,
+                    "key94": "Email / Newsletter / E-actions"
+                    ,
+                    "key95": "Sites Internet"
+                    ,
+                    "key96": "SMS / Texte / Whatsapp / Instagram"
+                    ,
+                    "key97": "Gazouillement"
+                    ,
+                    "key98": "Youtube"
+                    ,
+                    "key100": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key101": "Formation des éducateurs pairs : Une formation initiale ou une formation d’accompagnement continue des jeunes en tant qu’éducateurs pairs ou promoteurs de la santé des jeunes qui animent les séances d’éducation à la sexualité."
+                    ,
+                    "key102": "Nombre de jeunes contactés par l’AM avec une série COMPLÈTE du programme ESI"
+                    ,
+                    "key103": "Nombre de jeunes contactés par l’AM avec un SOUS-ENSEMBLE du programme ESI"
+                    ,
+                    "key104": "Nombre de jeunes contactés par l’AM avec des SESSIONS INDIVIDUELLES du programme ESI"
+                    ,
+                    "key105": "combien d’éducateurs les volontaires ou le personnel de votre Association ont-ils formé fournir l’ESI aux jeunes"
+                    ,
+                    "key106": "combien d’éducateurs les volontaires ou le personnel de votre Association ont-ils formé fournir la formation en ESI à d’autres éducateurs"
+                    ,
+                    "key107": "Nombre de cliniques statiques avec un système d’information hospitalier électronique"
+                    ,
+                    "key108": "Nombre de cliniques statiques avec un système d’information hospitalier manuel"
+                    ,
+                    "key109": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key110": "Nombre de cliniques statiques qui n’utilisent pas un système d’information hospitalier"
+                    ,
+                    "key111": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key112": "Le type de système d’information hospitalier utilisés"
+                    ,
+                    "key113": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key114": "Nombre d’utilisateurs de service qui ont répondu « Oui » à la question « Recommanderiez-vous cet établissement à un membre de votre famille ou à un ami ? »"
+                    ,
+                    "key115": "Nombre TOTAL d’utilisateurs de service interrogés"
+                    ,
+                    "key116": "@@@@@@@@@@@@@@@@@@@@"
+
+                },
+                "ar": {
+
+                    "key1": "البرامج والسياسات"
+                    ,
+                    "key2": ">أي خدمة من خدمات الصحة الجنسية والإنجابية الآتية قدمتها جمعيتكم في أوضاع إنسانية في العام الماضي "
+                    ,
+                    "key3": "Please enter an 'other' value for this selection."
+                    ,
+                    "key4": "منع الحمل"
+                    ,
+                    "key5": "رعاية الإجهاض الآمن"
+                    ,
+                    "key6": "الأمراض المنقولة جنسياً/عدوى الجهاز التناسلي"
+                    ,
+                    "key7": "فيروس نقص المناعة البشري (HIV)"
+                    ,
+                    "key8": "طب النساء"
+                    ,
+                    "key9": "التوليد"
+                    ,
+                    "key10": "التحري عن العنف القائم على النوع الاجتماعي"
+                    ,
+                    "key11": "طب الأطفال"
+                    ,
+                    "key12": "مشورة متخصصة"
+                    ,
+                    "key13": "غير ذلك - حدِّد من فضلك"
+                    ,
+                    "key14": ""
+                    ,
+                    "key15": "ما هي أنواع المبادرات/البرامج المرتكزة على النوع الاجتماعي التي نفذتها جمعيتكم في العام الماضي (يناير-ديسمبر "
+                    ,
+                    "key16": "Please enter an 'other' value for this selection."
+                    ,
+                    "key17": "التنوع"
+                    ,
+                    "key18": "العنف القائم على النوع الاجتماعي"
+                    ,
+                    "key19": "بناء قدرات في مجال النوع الاجتماعي"
+                    ,
+                    "key20": "احتياجات الرجل"
+                    ,
+                    "key21": "دور الرجل في المساواة بين الجنسين"
+                    ,
+                    "key22": "متابعة وتقييم برامج النوع الاجتماعي"
+                    ,
+                    "key23": "دعم المتحولين جنسياً"
+                    ,
+                    "key24": "تمكين المرأة"
+                    ,
+                    "key25": "مشاركة المرأة"
+                    ,
+                    "key26": "حقوق المرأة في العيادات"
+                    ,
+                    "key29": "هل نفذت جمعيتكم برامج (دعوة، تمكين، توفير معلومات عن الصحة الجنسية والإنجابية، خدمات تثقيفية) مع أي من المجموعات المستضعفة أو المحرومة من الخدمات التالية في العام الماضي "
+                    ,
+                    "key30": "Please enter an 'other' value for this selection."
+                    ,
+                    "key31": "اللواطيون، ولذين يمارسون الجنس مع الجنسين والرجال الذين يمارسون الجنس مع الرجال"
+                    ,
+                    "key32": "الخناثى، وغيرهم من ذوي الخصائص الجنسية المتنوعة"
+                    ,
+                    "key33": "السحاقيات، النساء اللواتي يمارسن الجنس مع الجنسين، وغيرهن من النساء اللواتي يمارسن الجنس مع نساء"
+                    ,
+                    "key34": "المهاجرون"
+                    ,
+                    "key35": "من تتراوح أعمارهم بين 50 سنة وما فوق"
+                    ,
+                    "key36": "من يعيشون تحت خط الفقر في وطنهم"
+                    ,
+                    "key37": "المتعايشون مع فيروس نقص المناعة البشري"
+                    ,
+                    "key38": "من يتعاطون المخدرات بالحقن أو غير ذلك"
+                    ,
+                    "key39": "ذوي الاحتياجات الخاصة"
+                    ,
+                    "key40": ""
+                    ,
+                    "key41": ""
+                    ,
+                    "key42": ""
+                    ,
+                    "key43": "العاملون في مجال الجنس، وغيرهم من الناس الذين يبيعون الجنس"
+                    ,
+                    "key44": "المتحولون جنسياً، وغيرهم من الأشخاص الذين لديهم هويات/خصائص جنسية متنوعة"
+                    ,
+                    "key47": ">هل استخدمت جمعيتكم من قبل أداة المتابعة(inside &Out tool) وذلك لتقييم منهج التثقيف الجنسي الشامل؟"
+                    ,
+                    "key48": ""
+                    ,
+                    "key49": "هل يوجد لدى جمعيتكم سياسة لحماية الطفل؟*"
+                    ,
+                    "key50": "يرجى تحميل نسخة من سياسة حماية الطفل الخاصة بجمعيتكم."
+                    ,
+                    "key51": ""
+                    ,
+                    "key52": "يرجى توضيح لماذا لا توجد لديكم سياسة لحماية الطفل (في ما لا يزيد عن 50 كلمة)</div>"
+                    ,
+                    "key53": "هل يوجد لدى جمعيتكم سياسة للمساواة بين الجنسين؟"
+                    ,
+                    "key54": "يرجى توضيح لماذا لا توجد لدى جمعيتكم سياسة مكتوبة للمساواة بين الجنسين (في ما لا يزيد عن 50 كلمة)."
+                    ,
+                    "key55": "هل شاركت جمعيتكم في الصندوق العالمي لمكافحة الإيدز والسل والملاريا في العام الماضي "
+                    ,
+                    "key56": "نعم - عضو في آلية التنسيق الوطنية"
+                    ,
+                    "key57": "نعم - منفذة لمنحة الصندوق العالمي كمتلقٍ رئيسي"
+                    ,
+                    "key58": "نعم - منفذة لمنحة الصندوق العالمي كمتلقٍ فرعي"
+                    ,
+                    "key59": "لا - غير مشاركة حالياً على الرغم من أنها مؤهلة للحصول على مخصصات التمويل"
+                    ,
+                    "key60": "لا يوجد - البلد غير مؤهلة"
+                    ,
+                    "key61": "نعم، غير ما سبق، حدد من فضلك"
+                    ,
+                    "key62": "الدعوة"
+                    ,
+                    "key63": "هل قامت جمعيتكم بأنشطة الدعوة للتأثير على الحكومة لوضع و/أو تحقيق أهداف على المستوى الجهوي 3.1 و 3.3 و 3.7 (للهدف 3 من أهداف التنمية المستدامة) و/أو غاية 5.6 (للهدف 5 من أهداف التنمية المستدامة) في العام الماضي؟."
+                    ,
+                    "key64": "يرجى ذكر أنشطة الدعوة بالتفصيل التي قامت بها جمعيتكم للتأثير على الحكومة لوضع و/أو تحقيق أهداف على المستوى الجهوي 3.1، 3.3، 3.7 و/أو 5.6 والنتائج التي تحققت (في ما لا يزيد عن 100 كلمة)"
+                    ,
+                    "key65": "تعبئة الموارد"
+                    ,
+                    "key66": "يرجى ملء الجدول أدناه بما بذلته جمعيتكم من جهود في مجال جمع الأموال محلياً."
+                    ,
+                    "key67": ""
+                    ,
+                    "key68": "فرص التمويل المحلية التي رصدتها جمعيتكم"
+                    ,
+                    "key69": "فرص التمويل المحلية التي تقدمت لها جمعيتكم"
+                    ,
+                    "key70": "طلبات التمويل المحلية التي تم منحها لجمعيتكم"
+                    ,
+                    "key71": ""
+                    ,
+                    "key72": ""
+                    ,
+                    "key73": ""
+                    ,
+                    "key74": ""
+                    ,
+                    "key75": ""
+                    ,
+                    "key76": ""
+                    ,
+                    "key77": ""
+                    ,
+                    "key78": ""
+                    ,
+                    "key79": ""
+                    ,
+                    "key80": ""
+                    ,
+                    "key81": ""
+                    ,
+                    "key82": ""
+                    ,
+                    "key83": ""
+                    ,
+                    "key84": ""
+                    ,
+                    "key85": ""
+                    ,
+                    "key86": ""
+                    ,
+                    "key87": ""
+                    ,
+                    "key88": ""
+                    ,
+                    "key89": ""
+                    ,
+                    "key90": ""
+                    ,
+                    "key91": ""
+                    ,
+                    "key93": ""
+                    ,
+                    "key94": ""
+                    ,
+                    "key95": ""
+                    ,
+                    "key96": ""
+                    ,
+                    "key97": ""
+                    ,
+                    "key98": ""
+                    ,
+                    "key100": ""
+                    ,
+                    "key101": ""
+                    ,
+                    "key102": ""
+                    ,
+                    "key103": ""
+                    ,
+                    "key104": ""
+                    ,
+                    "key105": ""
+                    ,
+                    "key106": ""
+                    ,
+                    "key107": ""
+                    ,
+                    "key108": ""
+                    ,
+                    "key109": ""
+                    ,
+                    "key110": ""
+                    ,
+                    "key111": ""
+                    ,
+                    "key112": ""
+                    ,
+                    "key113": ""
+                    ,
+                    "key114": ""
+                    ,
+                    "key115": ""
+                    ,
+                    "key116": ""
+
+                }
+            };
+
+            me.translate = function( uiLocale ){
+
+
+                me.tabDivTag.find( "span[keyword]" ).each( function()
+                {
+                    var key = $( this ).attr( "keyword" );
+                    var transValue = me.translateKey( uiLocale, key );
+                    if( transValue !== undefined )
+                    {
+                        $( this ).html( transValue );
+                    }
+
+                });
+
+            };
+
+            me.translateKey = function( lang, key ){
+                if( me.keywords[lang] == undefined ) return undefined;
+                return me.keywords[lang][key];
+            };
+
+        }
+
 
     </script>
 
@@ -107,7 +796,7 @@ Contraceptive services (Asia)
                 <td style="background-color: rgb(170, 170, 170);" width="97"><strong>25+</strong></td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Contraceptives - Counselling - General</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key15">Contraceptives - Counselling - General</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="j54Hd4Q6LtQ-BpkvMcVXQgy-val" name="entryfield" title="SRV-Contraceptives - Counselling - General Unknown Gender, 0 - 24" value="[ SRV-Contraceptives - Counselling - General Unknown Gender, 0 - 24 ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="j54Hd4Q6LtQ-mYU1cpPLbA3-val" name="entryfield" title="SRV-Contraceptives - Counselling - General Unknown Gender, 25 +" value="[ SRV-Contraceptives - Counselling - General Unknown Gender, 25 + ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="YIeuKaNz9Px-BpkvMcVXQgy-val" name="entryfield" title="REF-Contraceptives - Counselling - General Unknown Gender, 0 - 24" value="[ REF-Contraceptives - Counselling - General Unknown Gender, 0 - 24 ]" /></strong></td>
@@ -135,7 +824,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Oral Contraceptives - Consultation</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key16">Oral Contraceptives - Consultation</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="PeDrIurYbaG-BpkvMcVXQgy-val" name="entryfield" title="SRV-Oral Contraceptives - Consultation Unknown Gender, 0 - 24" value="[ SRV-Oral Contraceptives - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="PeDrIurYbaG-mYU1cpPLbA3-val" name="entryfield" title="SRV-Oral Contraceptives - Consultation Unknown Gender, 25 +" value="[ SRV-Oral Contraceptives - Consultation Unknown Gender, 25 + ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="UxYr0oKH2Gv-BpkvMcVXQgy-val" name="entryfield" title="REF-Oral Contraceptives - Consultation Unknown Gender, 0 - 24" value="[ REF-Oral Contraceptives - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
@@ -153,7 +842,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);"><strong><input id="indicatorTiGLJ6hcGPl" indicatorid="TiGLJ6hcGPl" name="indicator" readonly="readonly" title="Oral contraceptive FTU / Consultations 25+" value="[ Oral contraceptive FTU / Consultations 25+ ]" /></strong></td>
             </tr>
             <tr>
-                <td height="19" style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);"><strong>Oral contraceptives (combined)</strong></td>
+                <td height="19" style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);"><strong><span keyword="key17">Oral contraceptives (combined)</span></strong></td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
@@ -169,7 +858,7 @@ Contraceptive services (Asia)
                 <td style="background-color: rgb(138, 255, 158); border-color: rgb(204, 204, 204);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);"><strong>Oral contraceptives (progestogen only)</strong></td>
+                <td height="19" style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);"><strong><span keyword="key18">Oral contraceptives (progestogen only)</span></strong></td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
@@ -183,7 +872,7 @@ Contraceptive services (Asia)
                 <td style="background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);"><strong>Oral contraceptives (unable to categorize)</strong></td>
+                <td height="19" style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);"><strong><span keyword="key19">Oral contraceptives (unable to categorize)</span></strong></td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
                 <td style="background-color: rgb(255, 178, 43); border-color: rgb(0, 0, 0);">&nbsp;</td>
@@ -211,7 +900,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Injectable - Consultation</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key20">Injectable - Consultation</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="rjHfp3CKQSV-BpkvMcVXQgy-val" name="entryfield" title="SRV-Injectable - Consultation Unknown Gender, 0 - 24" value="[ SRV-Injectable - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="rjHfp3CKQSV-mYU1cpPLbA3-val" name="entryfield" title="SRV-Injectable - Consultation Unknown Gender, 25 +" value="[ SRV-Injectable - Consultation Unknown Gender, 25 + ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="YaYMNofezMH-BpkvMcVXQgy-val" name="entryfield" title="REF-Injectable - Consultation Unknown Gender, 0 - 24" value="[ REF-Injectable - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
@@ -225,7 +914,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);"><input id="indicatorqakS5moUVoI" indicatorid="qakS5moUVoI" name="indicator" readonly="readonly" title="Injectables FTU / Consultations 25+" value="[ Injectables FTU / Consultations 25+ ]" /></td>
             </tr>
             <tr>
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Injectables (1 month)</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key21">Injectables (1 month)</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -239,7 +928,7 @@ Contraceptive services (Asia)
                 <td style="background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Injectables (2 month)</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>I<span keyword="key22">Injectables (2 month)</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -253,7 +942,7 @@ Contraceptive services (Asia)
                 <td style="background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Injectables (3 month)</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key23">Injectables (3 month)</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -281,7 +970,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Patch / Ring - Consultation</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key24">Patch / Ring - Consultation</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="Lbf5GTNf3PR-BpkvMcVXQgy-val" name="entryfield" title="SRV-Patch / Ring - Consultation Unknown Gender, 0 - 24" value="[ SRV-Patch / Ring - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="Lbf5GTNf3PR-mYU1cpPLbA3-val" name="entryfield" title="SRV-Patch / Ring - Consultation Unknown Gender, 25 +" value="[ SRV-Patch / Ring - Consultation Unknown Gender, 25 + ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="aFGCboDH4kD-BpkvMcVXQgy-val" name="entryfield" title="REF-Patch / Ring - Consultation Unknown Gender, 0 - 24" value="[ REF-Patch / Ring - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
@@ -295,7 +984,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);"><input id="indicatorTYwL5H4hKGr" indicatorid="TYwL5H4hKGr" name="indicator" readonly="readonly" title="patch FTU / patch 25+" value="[ patch FTU / patch 25+ ]" /></td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Patch</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key25">Patch</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -309,7 +998,7 @@ Contraceptive services (Asia)
                 <td style="background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr>
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Ring</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key26">Ring</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -337,7 +1026,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr>
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Male condom - Consultation</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key27">Male condom - Consultation</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="lUzx180Ag9e-BpkvMcVXQgy-val" name="entryfield" title="SRV-Male condom - Consultation Unknown Gender, 0 - 24" value="[ SRV-Male condom - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="lUzx180Ag9e-mYU1cpPLbA3-val" name="entryfield" title="SRV-Male condom - Consultation Unknown Gender, 25 +" value="[ SRV-Male condom - Consultation Unknown Gender, 25 + ]" /></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><strong><input id="qgcE3GXjzaI-BpkvMcVXQgy-val" name="entryfield" title="REF-Male condom - Consultation Unknown Gender, 0 - 24" value="[ REF-Male condom - Consultation Unknown Gender, 0 - 24 ]" /></strong></td>
@@ -351,7 +1040,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);"><input id="indicatorbhWEJgBPYr6" indicatorid="bhWEJgBPYr6" name="indicator" readonly="readonly" title="M Condom FTU 25+ / M condom 25+" value="[ M Condom FTU 25+ / M condom 25+ ]" /></td>
             </tr>
             <tr>
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Condoms (male)</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key28">Condoms (male)</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -379,7 +1068,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Female condom - Consultation</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key29">Female condom - Consultation</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="lRYgBXy3IGs-BpkvMcVXQgy-val" name="entryfield" title="SRV-Female condom - Consultation Unknown Gender, 0 - 24" value="[ SRV-Female condom - Consultation Unknown Gender, 0 - 24 ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="lRYgBXy3IGs-mYU1cpPLbA3-val" name="entryfield" title="SRV-Female condom - Consultation Unknown Gender, 25 +" value="[ SRV-Female condom - Consultation Unknown Gender, 25 + ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="fQvnJsEgRsD-BpkvMcVXQgy-val" name="entryfield" title="REF-Female condom - Consultation Unknown Gender, 0 - 24" value="[ REF-Female condom - Consultation Unknown Gender, 0 - 24 ]" /></td>
@@ -393,7 +1082,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);"><input id="indicatorvLU2USpZ7uI" indicatorid="vLU2USpZ7uI" name="indicator" readonly="readonly" title="F Condom FTU 25+ / F condom 25+" value="[ F Condom FTU 25+ / F condom 25+ ]" /></td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Condoms (female)</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key30">Condoms (female)</span></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -421,7 +1110,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Male / Female condom - unable to categorize</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key31">Male / Female condom - unable to categorize</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="MLJdstXcFhz-BpkvMcVXQgy-val" name="entryfield" title="SRV-Male / Female condom - unable to categorize Unknown Gender, 0 - 24" value="[ SRV-Male / Female condom - unable to categorize Unknown Gender, 0 - 24 ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="MLJdstXcFhz-mYU1cpPLbA3-val" name="entryfield" title="SRV-Male / Female condom - unable to categorize Unknown Gender, 25 +" value="[ SRV-Male / Female condom - unable to categorize Unknown Gender, 25 + ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="BHynyivMOeE-BpkvMcVXQgy-val" name="entryfield" title="REF-Male / Female condom - unable to categorize Unknown Gender, 0 - 24" value="[ REF-Male / Female condom - unable to categorize Unknown Gender, 0 - 24 ]" /></td>
@@ -449,7 +1138,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);">&nbsp;</td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(204, 204, 204);"><strong>Diaphragm / Cervical cap - Consultation</strong></td>
+                <td height="19" style="border-color: rgb(204, 204, 204);"><strong><span keyword="key32">Diaphragm / Cervical cap - Consultation</span></strong></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="v3Nr9RHKtpR-BpkvMcVXQgy-val" name="entryfield" title="SRV-Diaphragm / Cervical cap - Consultation Unknown Gender, 0 - 24" value="[ SRV-Diaphragm / Cervical cap - Consultation Unknown Gender, 0 - 24 ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="v3Nr9RHKtpR-mYU1cpPLbA3-val" name="entryfield" title="SRV-Diaphragm / Cervical cap - Consultation Unknown Gender, 25 +" value="[ SRV-Diaphragm / Cervical cap - Consultation Unknown Gender, 25 + ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="cAw5BG6naVS-BpkvMcVXQgy-val" name="entryfield" title="REF-Diaphragm / Cervical cap - Consultation Unknown Gender, 0 - 24" value="[ REF-Diaphragm / Cervical cap - Consultation Unknown Gender, 0 - 24 ]" /></td>
@@ -463,7 +1152,7 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204); background-color: rgb(138, 255, 158);"><input id="indicatorRD0IvQ77s7j" indicatorid="RD0IvQ77s7j" name="indicator" readonly="readonly" title="Diaphragm CAP FTU / Diaphragm CAP 25+" value="[ Diaphragm CAP FTU / Diaphragm CAP 25+ ]" /></td>
             </tr>
             <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>Diaphragm</strong></td>
+                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong><span keyword="key33">Diaphragm<span keyword="key33"></strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
@@ -962,20 +1651,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204);"><input id="indicatorA3EhwBk39Kz" indicatorid="A3EhwBk39Kz" name="indicator" readonly="readonly" title="FVSC Cons FTU / FVSC 0-24" value="[ FVSC Cons FTU / FVSC 0-24 ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="indicatoroevE3KRvrYQ" indicatorid="oevE3KRvrYQ" name="indicator" readonly="readonly" title="FVSC Cons FTU / FVSC 25+" value="[ FVSC Cons FTU / FVSC 25+ ]" /></td>
             </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Hysteroscopy (ESSURE&reg;)</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="jBvSTjiWi9S-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="jBvSTjiWi9S-mYU1cpPLbA3-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 25 +" value="[ SRV-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="P5wPaOOEK9C-BpkvMcVXQgy-val" name="entryfield" title="REF-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 0 - 24" value="[ REF-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="P5wPaOOEK9C-mYU1cpPLbA3-val" name="entryfield" title="REF-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 25 +" value="[ REF-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="E376KRFyqA4-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="E376KRFyqA4-BpkvMcVXQgy-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Hysteroscopy (ESSURE®) (Global) Unknown Gender, 0 - 24" value="[ NEW-FVSC - Management - Surgical - Hysteroscopy (ESSURE®) (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="E376KRFyqA4-mYU1cpPLbA3-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Hysteroscopy (ESSURE®) (Global) Unknown Gender, 25 +" value="[ NEW-FVSC - Management - Surgical - Hysteroscopy (ESSURE®) (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorqP1ilCrxNnO" indicatorid="qP1ilCrxNnO" name="indicator" readonly="readonly" title="Hysteroscopy  FTU / Hysteroscopy  0-24" value="[ Hysteroscopy  FTU / Hysteroscopy  0-24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatormFhasjyu218" indicatorid="mFhasjyu218" name="indicator" readonly="readonly" title="Hysteroscopy  FTU / Hysteroscopy  25+" value="[ Hysteroscopy  FTU / Hysteroscopy  25+ ]" /></td>
-            </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Hysteroscopy (ESSURE&reg;) (Asia)</strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="Yx66SXuEV2D-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Asia) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Hysteroscopy (ESSURE ®) (Asia) Unknown Gender, 0 - 24 ]" /></td>
@@ -989,20 +1664,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorHih8qnk2bGV" indicatorid="Hih8qnk2bGV" name="indicator" readonly="readonly" title="Hysteroscopy Asia  FTU / Hysteroscopy Asia  0-24" value="[ Hysteroscopy Asia  FTU / Hysteroscopy Asia  0-24 ]" /></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorakR8MSi5LnB" indicatorid="akR8MSi5LnB" name="indicator" readonly="readonly" title="Hysteroscopy Asia  FTU / Hysteroscopy Asia  25+" value="[ Hysteroscopy Asia  FTU / Hysteroscopy Asia  25+ ]" /></td>
-            </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Laparoscopy</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="PbJfpERgVnd-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="PbJfpERgVnd-mYU1cpPLbA3-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 25 +" value="[ SRV-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="VwnRu1wjoQv-BpkvMcVXQgy-val" name="entryfield" title="REF-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 0 - 24" value="[ REF-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="VwnRu1wjoQv-mYU1cpPLbA3-val" name="entryfield" title="REF-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 25 +" value="[ REF-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="KD4csX7XCBO-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="KD4csX7XCBO-BpkvMcVXQgy-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 0 - 24" value="[ NEW-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="KD4csX7XCBO-mYU1cpPLbA3-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 25 +" value="[ NEW-FVSC - Management - Surgical - Laparoscopy (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorYcW1iK35Hew" indicatorid="YcW1iK35Hew" name="indicator" readonly="readonly" title="Laparoscopy  FTU / Laparoscopy  0-24" value="[ Laparoscopy  FTU / Laparoscopy  0-24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorI2a6Ni9aImI" indicatorid="I2a6Ni9aImI" name="indicator" readonly="readonly" title="Laparoscopy  FTU / Laparoscopy  25+" value="[ Laparoscopy  FTU / Laparoscopy  25+ ]" /></td>
             </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Laparoscopy (Asia)</strong></td>
@@ -1018,20 +1679,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorutqJOP5QraB" indicatorid="utqJOP5QraB" name="indicator" readonly="readonly" title="Laparoscopy Asia FTU / Laparoscopy Asia 0-24" value="[ Laparoscopy Asia FTU / Laparoscopy Asia 0-24 ]" /></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorBAo0Hj6GBu1" indicatorid="BAo0Hj6GBu1" name="indicator" readonly="readonly" title="Laparoscopy Asia FTU / Laparoscopy Asia 25+" value="[ Laparoscopy Asia FTU / Laparoscopy Asia 25+ ]" /></td>
             </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Laparotomy</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="E5zau2tLtDq-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="E5zau2tLtDq-mYU1cpPLbA3-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 25 +" value="[ SRV-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="vrXgo9uiR8P-BpkvMcVXQgy-val" name="entryfield" title="REF-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 0 - 24" value="[ REF-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="vrXgo9uiR8P-mYU1cpPLbA3-val" name="entryfield" title="REF-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 25 +" value="[ REF-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="BSVA497zIyM-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="BSVA497zIyM-BpkvMcVXQgy-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 0 - 24" value="[ NEW-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="BSVA497zIyM-mYU1cpPLbA3-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 25 +" value="[ NEW-FVSC - Management - Surgical - Laparotomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorNJgdtc5xj7D" indicatorid="NJgdtc5xj7D" name="indicator" readonly="readonly" title="Laparotomy  FTU / Laparotomy  0-24" value="[ Laparotomy  FTU / Laparotomy  0-24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorjVfudzoEo4j" indicatorid="jVfudzoEo4j" name="indicator" readonly="readonly" title="Laparotomy  FTU / Laparotomy  25+" value="[ Laparotomy  FTU / Laparotomy  25+ ]" /></td>
-            </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Laparotomy (Asia)</strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="LgKeX6z9zH8-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Laparotomy (Asia) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Laparotomy (Asia) Unknown Gender, 0 - 24 ]" /></td>
@@ -1046,20 +1693,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorqfj7dLj4yNS" indicatorid="qfj7dLj4yNS" name="indicator" readonly="readonly" title="Laparotomy Asia  FTU / Laparotomy Asia 0-24" value="[ Laparotomy Asia  FTU / Laparotomy Asia 0-24 ]" /></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorbcVhxOUCYPc" indicatorid="bcVhxOUCYPc" name="indicator" readonly="readonly" title="Laparotomy Asia  FTU / Laparotomy Asia 25+" value="[ Laparotomy Asia  FTU / Laparotomy Asia 25+ ]" /></td>
             </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Minilaparotomy&nbsp;</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="Rtcm9Dwsz0H-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="Rtcm9Dwsz0H-mYU1cpPLbA3-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 25 +" value="[ SRV-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="AkVugYJU0Cp-BpkvMcVXQgy-val" name="entryfield" title="REF-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 0 - 24" value="[ REF-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="AkVugYJU0Cp-mYU1cpPLbA3-val" name="entryfield" title="REF-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 25 +" value="[ REF-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="LoolwRfhuqE-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="LoolwRfhuqE-BpkvMcVXQgy-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 0 - 24" value="[ NEW-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="LoolwRfhuqE-mYU1cpPLbA3-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 25 +" value="[ NEW-FVSC - Management - Surgical - Minilaparotomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorCzoS1LSy86u" indicatorid="CzoS1LSy86u" name="indicator" readonly="readonly" title="Minilaparotomy  FTU / Minilaparotomy  0-24" value="[ Minilaparotomy  FTU / Minilaparotomy  0-24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatoroTFbygWU1Om" indicatorid="oTFbygWU1Om" name="indicator" readonly="readonly" title="Minilaparotomy  FTU / Minilaparotomy  25+" value="[ Minilaparotomy  FTU / Minilaparotomy  25+ ]" /></td>
-            </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Minilaparotomy (Asia)</strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="eOmo8rBEM9X-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Minilaparotomy (Asia) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Minilaparotomy (Asia) Unknown Gender, 0 - 24 ]" /></td>
@@ -1073,20 +1706,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td align="center" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorCwTvihKf3uV" indicatorid="CwTvihKf3uV" name="indicator" readonly="readonly" title="Minilaparotomy Asia FTU / Minilaparotomy Asia 0-24" value="[ Minilaparotomy Asia FTU / Minilaparotomy Asia 0-24 ]" /></td>
                 <td align="center" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorL6YG5nE1H15" indicatorid="L6YG5nE1H15" name="indicator" readonly="readonly" title="Minilaparotomy Asia FTU / Minilaparotomy Asia 25+" value="[ Minilaparotomy Asia FTU / Minilaparotomy Asia 25+ ]" /></td>
-            </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Trans vaginal tubal ligation</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="Rq0Ih1OSyFo-BpkvMcVXQgy-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 0 - 24" value="[ SRV-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="Rq0Ih1OSyFo-mYU1cpPLbA3-val" name="entryfield" title="SRV-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 25 +" value="[ SRV-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="BDeVK8W4h0Q-BpkvMcVXQgy-val" name="entryfield" title="REF-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 0 - 24" value="[ REF-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="BDeVK8W4h0Q-mYU1cpPLbA3-val" name="entryfield" title="REF-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 25 +" value="[ REF-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="LRCc6BwijzT-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="LRCc6BwijzT-BpkvMcVXQgy-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 0 - 24" value="[ NEW-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="LRCc6BwijzT-mYU1cpPLbA3-val" name="entryfield" title="NEW-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 25 +" value="[ NEW-FVSC - Management - Surgical - Trans vaginal tubal ligation (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td align="center" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatoracy3lzAMw9A" indicatorid="acy3lzAMw9A" name="indicator" readonly="readonly" title="Trans vag tubal lig FTU / Trans vag tubal lig 0-24" value="[ Trans vag tubal lig FTU / Trans vag tubal lig 0-24 ]" /></td>
-                <td align="center" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorB7AjljwJK1g" indicatorid="B7AjljwJK1g" name="indicator" readonly="readonly" title="Trans vag tubal lig FTU / Trans vag tubal lig 25+" value="[ Trans vag tubal lig FTU / Trans vag tubal lig 25+ ]" /></td>
             </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>FVSC - Trans vaginal tubal ligation (Asia)</strong></td>
@@ -1242,20 +1861,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(204, 204, 204);"><input id="indicatorNssw7minoxQ" indicatorid="Nssw7minoxQ" name="indicator" readonly="readonly" title="MVSC Cons FTU / MVSC cons 0-24" value="[ MVSC Cons FTU / MVSC cons 0-24 ]" /></td>
                 <td style="border-color: rgb(204, 204, 204);"><input id="indicatorvTWf3r7rOBn" indicatorid="vTWf3r7rOBn" name="indicator" readonly="readonly" title="MVSC Cons FTU / MVSC 25+" value="[ MVSC Cons FTU / MVSC 25+ ]" /></td>
             </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>MVSC - Incisional Vasectomy</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="adHJeWhXulo-BpkvMcVXQgy-val" name="entryfield" title="SRV-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 0 - 24" value="[ SRV-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="adHJeWhXulo-mYU1cpPLbA3-val" name="entryfield" title="SRV-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 25 +" value="[ SRV-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="pz8Ddas46SK-BpkvMcVXQgy-val" name="entryfield" title="REF-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 0 - 24" value="[ REF-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="pz8Ddas46SK-mYU1cpPLbA3-val" name="entryfield" title="REF-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 25 +" value="[ REF-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="tSV8R3AjsG3-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="tSV8R3AjsG3-BpkvMcVXQgy-val" name="entryfield" title="NEW-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 0 - 24" value="[ NEW-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="tSV8R3AjsG3-mYU1cpPLbA3-val" name="entryfield" title="NEW-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 25 +" value="[ NEW-MVSC - Management - Surgical - Incisional Vasectomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatoru5yt4mJi5Z5" indicatorid="u5yt4mJi5Z5" name="indicator" readonly="readonly" title="Incisional Vasectomy FTU/Incisional Vasectomy 0-24" value="[ Incisional Vasectomy FTU/Incisional Vasectomy 0-24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatoru3RqYk5apH8" indicatorid="u3RqYk5apH8" name="indicator" readonly="readonly" title="Incisional Vasectomy  FTU/Incisional Vasectomy 25+" value="[ Incisional Vasectomy  FTU/Incisional Vasectomy 25+ ]" /></td>
-            </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>MVSC - Incisional Vasectomy (Asia)</strong></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="ZvfzgZsRuAc-BpkvMcVXQgy-val" name="entryfield" title="SRV-MVSC - Management - Surgical - Incisional Vasectomy (Asia) Unknown Gender, 0 - 24" value="[ SRV-MVSC - Management - Surgical - Incisional Vasectomy (Asia) Unknown Gender, 0 - 24 ]" /></td>
@@ -1269,20 +1874,6 @@ Contraceptive services (Asia)
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorGJR0MDcV1Ga" indicatorid="GJR0MDcV1Ga" name="indicator" readonly="readonly" title="Incisional Vasectomy FTU/SRV (Asia) 0-24" value="[ Incisional Vasectomy FTU/SRV (Asia) 0-24 ]" /></td>
                 <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorBTUlfMcwDBM" indicatorid="BTUlfMcwDBM" name="indicator" readonly="readonly" title="Incisional Vasectomy FTU/SRV (Asia) 25+" value="[ Incisional Vasectomy FTU/SRV (Asia) 25+ ]" /></td>
-            </tr>
-            <tr height="19">
-                <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>MVSC - No-scalpel Vasectomy</strong></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="E2qdJml6Q8W-BpkvMcVXQgy-val" name="entryfield" title="SRV-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 0 - 24" value="[ SRV-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="E2qdJml6Q8W-mYU1cpPLbA3-val" name="entryfield" title="SRV-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 25 +" value="[ SRV-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="S4o9IumGcjT-BpkvMcVXQgy-val" name="entryfield" title="REF-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 0 - 24" value="[ REF-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="S4o9IumGcjT-mYU1cpPLbA3-val" name="entryfield" title="REF-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 25 +" value="[ REF-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td id="kXTFl3hdDIX-cell" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="kXTFl3hdDIX-BpkvMcVXQgy-val" name="entryfield" title="NEW-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 0 - 24" value="[ NEW-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 0 - 24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="kXTFl3hdDIX-mYU1cpPLbA3-val" name="entryfield" title="NEW-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 25 +" value="[ NEW-MVSC - Management - Surgical - No-scalpel Vasectomy (Global) Unknown Gender, 25 + ]" /></td>
-                <td>&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);">&nbsp;</td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorvgAP389GyWS" indicatorid="vgAP389GyWS" name="indicator" readonly="readonly" title="No-scalpel Vasectomy FTU/No-scalpel Vasectomy 0-24" value="[ No-scalpel Vasectomy FTU/No-scalpel Vasectomy 0-24 ]" /></td>
-                <td style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><input id="indicatorM3soPzzWEG1" indicatorid="M3soPzzWEG1" name="indicator" readonly="readonly" title="No-scalpel Vasectomy FTU/No-scalpel Vasectomy 25+" value="[ No-scalpel Vasectomy FTU/No-scalpel Vasectomy 25+ ]" /></td>
             </tr>
             <tr>
                 <td height="19" style="border-color: rgb(0, 0, 0); background-color: rgb(255, 178, 43);"><strong>MVSC - No-scalpel Vasectomy (Asia)</strong></td>

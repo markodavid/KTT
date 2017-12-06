@@ -14,16 +14,764 @@
     </ul>
     <script type="text/javascript">
 
-        $("#tabs").tabs({
-                    activate: function (event, ui) {
-                        var active = $('#tabs').tabs('option', 'active');
-                        $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
+        $( document ).ready( function()
+        {
+            $("#tabs").tabs({
+                        activate: function (event, ui) {
+                            var active = $('#tabs').tabs('option', 'active');
+                            $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
 
+                        }
                     }
+            );
+
+            var translate = new Translation();
+            translate.performSetup( function(){
+                $( "#tabs" ).show();
+                $("#totalMsgProcessing").html("0");
+                $("#totalMsgLoading").show();
+                $(".loadingHeader").show();
+                $(".content_i").hide();
+            });
+
+
+        });
+
+        // ==============================================================================================
+        // Translation
+        // ==============================================================================================
+
+        function Translation()
+        {
+            var me = this;
+
+            me._queryURL_User_Language = "../api/me/user-account";
+            me.tabDivTag = $( "#tabs" );
+
+            me.performSetup = function( returnFunc ) {
+
+                $.ajax({
+                    type: "GET"
+                    ,dataType: "json"
+                    ,url: me._queryURL_User_Language
+                    ,async: true
+                    ,success: function( json )
+                    {
+                        // Get ui-locale which is selected from current user
+                        var userUiLocale = json.settings.keyUiLocale;
+                        if( userUiLocale === undefined )
+                        {
+                            userUiLocale = "en";
+                        }
+
+                        // Do UI translation
+                        me.translate( userUiLocale );
+
+                        returnFunc();
+                    }
+                });
+            }
+
+            me.keywords =
+            {
+                // Spanish
+                "es": {
+                 "key1" : "Política"
+                ,"key2" : "¿Cuáles de los siguientes servicios de SSR prestó su Asociación en emergencias humanitarias el último año ? (Seleccione todas las opciones que correspondan)."
+                ,"key3" : "Please enter an 'other' value for this selection."
+                ,"key4" : "Anticoncepción"
+                ,"key5" : "Servicios de aborto seguro"
+                ,"key6" : "ITS/ITR"
+                ,"key7" : "VIH"
+                ,"key8" : "Ginecología"
+                ,"key9" : "Obstetricia"
+                ,"key10" : "Detección de violencia basada en el género"
+                ,"key11" : "Pediatría"
+                ,"key12" : "Consejería especializada"
+                ,"key13" : "Otro"
+                ,"key14" : "Ninguna"
+                ,"key15" : "¿Qué tipos de iniciativas/programas con enfoque de género implementó su Asociación el último año? (Seleccione todas las opciones que correspondan)."
+                ,"key16" : "Please enter an 'other' value for this selection."
+                ,"key17" : "Diversidad de género"
+                ,"key18" : "Violencia basada en el género"
+                ,"key19" : "Desarrollo de las capacidades en los asuntos de género"
+                ,"key20" : "Necesidades de los hombres"
+                ,"key21" : "El papel de los hombres en la igualdad de género"
+                ,"key22" : "Monitoreo y evaluación de los programas de género"
+                ,"key23" : "Apoyo para las personas transgénero"
+                ,"key24" : "Empoderamiento de las mujeres"
+                ,"key25" : "Participación de las mujeres"
+                ,"key26" : "Derechos de las mujeres en las clínicas"
+                ,"key29" : "¿Su Asociación implementó programas (advocacy, empoderamiento, información sobre SSR, servicios educativos) con alguno de los siguientes grupos de personas vulnerables o insuficientemente atendidas el último año? (Seleccione todas las opciones que correspondan)."
+                ,"key30" : "Please enter an 'other' value for this selection."
+                ,"key31" : "Hombres gay, bisexuales y otros hombres que tienen relaciones sexuales con hombres"
+                ,"key32" : "Personas intersexuales y otras personas con características sexuales diversas"
+                ,"key33" : "Lesbianas, mujeres bisexuales y otras mujeres que tienen relaciones sexuales con mujeres"
+                ,"key34" : "Migrantes"
+                ,"key35" : "Personas de 50 años en adelante"
+                ,"key36" : "Personas que viven por debajo del umbral nacional de pobreza"
+                ,"key37" : "Personas que viven con el VIH"
+                ,"key38" : "Personas que usan o se inyectan drogas"
+                ,"key39" : "Personas con discapacidades"
+                ,"key40" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key41" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key42" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key43" : "Trabajadores sexuales y otras personas que venden servicios sexuales"
+                ,"key44" : "Personas transgénero y otras personas con expresiones o identidades de género diversas"
+                ,"key47" : "¿Su Asociación alguna vez ha usado la herramienta A Fondo para evaluar su programa de EIS el último año?"
+                ,"key48" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key49" : "¿Cuenta su Asociación con una política de protección de la infancia escrita?"
+                ,"key50" : "Adjunte una copia de su política de protección de la infancia."
+                ,"key51" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key52" : "Explique por qué no tienen una política de protección de la infancia (en un máximo de 50 palabras)."
+                ,"key53" : "¿Cuenta su Asociación con una política de igualdad de género escrita?"
+                ,"key54" : "Explique por qué su Asociación no tiene una política de igualdad de género escrita (en un máximo de 50 palabras)."
+                ,"key55" : "¿Trabajó su Asociación con el Fondo Mundial de Lucha contra el SIDA, la Tuberculosis y la Malaria el último año? (Seleccione todas las opciones que correspondan)."
+                ,"key56" : "Sí, como miembro de un Mecanismo de Coordinación Nacional"
+                ,"key57" : "Sí, como ejecutor de subvención del Fondo Global en calidad de beneficiario principal"
+                ,"key58" : "Sí, como ejecutor de subvención del Fondo Global en calidad de beneficiario secundario"
+                ,"key59" : "No, actualmente no trabaja con el Fondo Global a pesar de que el país es elegible para recibir una asignación de fondos"
+                ,"key60" : "No corresponde — El país no es elegible"
+                ,"key61" : "Sí, de otra forma (especifique): "
+                ,"key62" : "Objetivo de Desarrollo Sostenible"
+                ,"key63" : "¿Su Asociación ha llevado a cabo actividades de advocacy para ejercer influencia sobre el gobierno a fin de que fije o cumpla, a nivel nacional, las metas 3.1, 3.3 y 3.7 (del Objetivo de Desarrollo Sostenible 3) y/o la meta 5.6 (del Objetivo de Desarrollo Sostenible 5) el último año ?"
+                ,"key64" : "Describa las actividades de advocacy que su Asociación ha llevado a cabo para ejercer influencia sobre el gobierno a fin de que fije o cumpla, a nivel nacional, las metas 3.1, 3.3, 3.7 y/o 5.6 y los resultados alcanzados (en un máximo de 100 palabras)."
+                ,"key65" : "Movilización de recursos"
+                ,"key66" : "Complete la tabla que figura abajo con información sobre las actividades locales de movilización de recursos de su Asociación."
+                ,"key67" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key68" : "Oportunidades de financiamiento locales identificadas por su Asociación"
+                ,"key69" : "Oportunidades de financiamiento locales que ha solicitado la Asociación"
+                ,"key70" : "Fondos locales otorgados que habían sido solicitados por su Asociación"
+                ,"key71" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key72" : "Esto incluye todo el personal de tiempo completo y tiempo parcial permanente o temporario empleado por la Asociación a todos los niveles (sede, sucursales, y sitios de proyectos). Esto no incluye voluntarios jóvenes. El personal de tiempo parcial se debe contar como una persona (no en fracciones)."
+                ,"key73" : "Número de personal que se identifican como MUJER"
+                ,"key74" : "Número de personal que se identifica como HOMBRE"
+                ,"key75" : "Número de personal que se identifica con otra identidad de género"
+                ,"key76" : "Personal total"
+                ,"key77" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key78" : "El termino Organo de Gobierno se refiere al organo de toma de decisiones a nivel nacional de la Asociacion, el cual es electo por la totalidad de los miembros voluntarios de esa Asociacion o sus representantes. Por favor tome en cuenta que 'menores de 25 anos de edad' se rediere a las personas que tenian menos de 25 anos de edad en el momento de la ultima eleccion de la Junta de Organo de Gobierno"
+                ,"key79" : "Número total de voluntarios"
+                ,"key80" : "Número total de activistas"
+                ,"key81" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key82" : "La categoría en línea más grande"
+                ,"key83" : "La categoría fuera de línea más grande"
+                ,"key84" : "Total de mensajes positivos en línea"
+                ,"key85" : "Total de mensajes positivos sin conexión"
+                ,"key86" : "Correo electrónico / boletín informativo / E-actions"
+                ,"key87" : "Folletos / volantes"
+                ,"key88" : "Posters"
+                ,"key89" : "Teatro / Evento público"
+                ,"key90" : "Informe / Folleto"
+                ,"key91" : "Línea telefónica"
+                ,"key93" : "Facebook"
+                ,"key94" : "Correo electrónico / boletín informativo / E-actions"
+                ,"key95" : "Sitios web"
+                ,"key96" : "SMS / Text / Whatsapp / Instagram"
+                ,"key97" : "Gorjeo"
+                ,"key98" : "Youtube"
+                ,"key100" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key101" : "Número de educadores pares jóvenes capacitados"
+                ,"key102" : "Personas jóvenes alcanzadas por la AM con una serie completa del currículo de EIS"
+                ,"key103" : "Personas Jóvenes alcanzadas por la AM con un set parcial del currículo de EIS"
+                ,"key104" : "Personas jóvenes alcanzadas por la AM con sesiones individuales del currículo de EIS"
+                ,"key105" : "a cuantos educadores han capacitado los voluntarios o el personal de su Asociación para lograr lo siguiente proporcionar EIS a personas jóvenes?"
+                ,"key106" : "a cuantos educadores han capacitado los voluntarios o el personal de su Asociación para lograr lo siguiente proporcionar capacitación sobre EIS a otros educadores?"
+                ,"key107" : "# de clínicas fijas donde se usa un sistema de información clínica electronico"
+                ,"key108" : "# de clínicas fijas donde se usa un sistema de información clínica manual"
+                ,"key109" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key110" : "# de clínicas fijas donde NO se usa un sistema de información clínica"
+                ,"key111" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key112" : "Cargar el archivo sobre sistemas de informacion clinica que utiliza"
+                ,"key113" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key114" : "Número de usuarios de servicios que respondieron afirmativamente a la pregunta Recomendaría este instalación a un familiar o amigo?"
+                ,"key115" : "Número total de usuarios de servicios encuestados"
+                ,"key116" : "@@@@@@@@@@@@@@@@@@@@"
+                ,"key117" : "Si - Otro"
+                ,"Key118" : "Prisioneros"
                 }
+                ,"en": {
+                "key1" : "Policy"
+                ,"key2" : "Which of the following SRH services did your Association provide in humanitarian settings in the last year ? (Tick all that apply)"
+                ,"key3" : "Please enter an 'other' value for this selection."
+                ,"key4" : "Contraception"
+                ,"key5" : "Safe abortion care"
+                ,"key6" : "STIs/RTIs"
+                ,"key7" : "HIV"
+                ,"key8" : "Gynaecology"
+                ,"key9" : "Obstetrics"
+                ,"key10" : "Gender-based violence screening"
+                ,"key11" : "Paediatrics"
+                ,"key12" : "Specialized counselling"
+                ,"key13" : "Other"
+                ,"key14" : "None "
+                ,"key15" : "What types of gender-focused programmes/initiatives did your Association implement in the last year ? (Tick all that apply)"
+                ,"key16" : "Please enter an 'other' value for this selection."
+                ,"key17" : "Gender diversity"
+                ,"key18" : "Gender-based violence"
+                ,"key19" : "Gender capacity building"
+                ,"key20" : "Men’s needs"
+                ,"key21" : "Men’s role in gender equality"
+                ,"key22" : "Monitoring and evaluation of gender programmes"
+                ,"key23" : "Support for transgender people"
+                ,"key24" : "Women’s empowerment"
+                ,"key25" : "Women’s participation"
+                ,"key26" : "Women's rights in clinics"
+                ,"key29" : "Did your Association implement programmes (advocacy, empowerment, provision of SRH information, education services) with any of the following vulnerable or under-served groups in the last year? (Tick all that apply)"
+                ,"key30" : "Please enter an 'other' value for this selection."
+                ,"key31" : "Gay, bisexual men, and other men who have sex with men"
+                ,"key32" : "Intersex people, and other people with diverse sex characteristics"
+                ,"key33" : "Lesbian, bisexual women, and other women who have sex with women"
+                ,"key34" : "Migrants"
+                ,"key35" : "People aged 50 years and older"
+                ,"key36" : "People living below the national poverty line"
+                ,"key37" : "People living with HIV"
+                ,"key38" : "People who inject or use drugs"
+                ,"key39" : "People with disabilities"
+                ,"key40" : "People in prisons and other closed settings"
+                ,"key41" : "Nomadic People"
+                ,"key42" : "Refugees migrants in transit Asylum seekers"
+                ,"key43" : "Sex workers, and other people who sell sex"
+                ,"key44" : "Transgender people, and other people with diverse gender identities/expressions"
+                ,"key47" : "Has your Association ever used the Inside & Out tool to assess your CSE curriculum?"
+                ,"key48" : "Please upload a copy of your most recent Inside & Out assessment."
+                ,"key49" : "Does your Association have a written child protection policy"
+                ,"key50" : "Please upload a copy of your child protection policy."
+                ,"key51" : "Use the additional boxes to upload further documents, if required."
+                ,"key52" : "Please explain why you do not have a child protection policy. "
+                ,"key53" : "Does your Association have a written gender equality policy?"
+                ,"key54" : "Please explain why your Association does not have a written gender equality policy (in no more than 50 words)"
+                ,"key55" : "Was your Association involved with The Global Fund to Fight AIDS, Tuberculosis and Malaria in the last year ? (Tick all that apply)"
+                ,"key56" : "Yes – Member of Country Coordinating Mechanism"
+                ,"key57" : "Yes – Implementer of Global Fund grant as Principal Recipient"
+                ,"key58" : "Yes – Implementer of Global Fund grant as Sub-Recipient"
+                ,"key59" : "No – Not currently involved despite country being eligible to receive a funding allocation"
+                ,"key60" : "N/A - Country not eligible"
+                ,"key61" : "Yes, other please specify"
+                ,"key62" : "Sustainable Devvelopment Goals"
+                ,"key63" : "Did your Association conduct advocacy activities to influence the government to set and/or deliver country-level targets3.1, 3.3 and 3.7 (for Sustainable Development Goal 3) and/or target 5.6 (for Sustainable Development Goal 5) in the last year ?"
+                ,"key64" : "Please describe the advocacy activities that your Association has undertaken to influence the government to set and/or deliver country-level targets 3.1, 3.3, 3.7 and/or 5.6 and the results achieved (in no more than 100 words)."
+                ,"key65" : "Resource Mobilization"
+                ,"key66" : "Please complete the table below on your Association’s local fundraising efforts"
+                ,"key67" : "Please enter the total amount (in US$) for each of the below. "
+                ,"key68" : "Local funding opportunities identified by your Association"
+                ,"key69" : "Local funding opportunities for which the Association applied"
+                ,"key70" : "Local funding applications that your Association was awarded"
+                ,"key71" : "Please complete the table below for your Associations' staff at the time of your last payroll. "
+                ,"key72" : "This includes all full time, part time permanent and temporary staff employed by the Association at ALL levels (headquarters, branches and project sites). This does not include young volunteers. Part time staff should be counted as one (not in fractions)"
+                ,"key73" : "Number of staff members who identify as FEMALE"
+                ,"key74" : "Number of staff members who identify as MALE"
+                ,"key75" : "Number of staff members who identify with another gender identity"
+                ,"key76" : "Total staff"
+                ,"key77" : "Please provide details of the make up of your Associations' Governing Board."
+                ,"key78" : "The term Governing body means the national-level decision making body of the Association that is elected by the total volunteer members of that Association or their representatives. Please note that 'aged under 25 years' refers to those who were below 25 years of age at the time of the last governing body election. "
+                ,"key79" : "Total number of VOLUNTEERS"
+                ,"key80" : "Total number of ACTIVISTS "
+                ,"key81" : "Please provide the TOTAL number of volunteers (including your Governing body members and all other volunteers) and activists (individuals on your contact list or database who took at least one action in the last year (January-December))"
+                ,"key82" : "Largest online category"
+                ,"key83" : "Largest offline category"
+                ,"key84" : "Total online positive messages"
+                ,"key85" : "Total offline positive messages"
+                ,"key86" : "Email / Newsletter / E-actions"
+                ,"key87" : "Leaflets / Flyers"
+                ,"key88" : "Posters"
+                ,"key89" : "Theatre / Public Event"
+                ,"key90" : "Report / Brochure"
+                ,"key91" : "Telephone hotline "
+                ,"key93" : "Facebook "
+                ,"key94" : "Email / Newsletter / E-actions "
+                ,"key95" : "Websites"
+                ,"key96" : "SMS / Text / Whatsapp / Instagram "
+                ,"key97" : "Twitter "
+                ,"key98" : "Youtube"
+                ,"key100" : "Please provide the LARGEST figure for each of your ONLINE and OFFLINE media channels to provide your positive messaging reach for the past year. Please also provide the channel type. "
+                ,"key101" : "Number of Peer Educators Trained"
+                ,"key102" : "Young people reached by MA with a COMPLETE series of the CSE curriculum"
+                ,"key103" : "Young people reached by MA with a PARTIAL series of the CSE curriculum"
+                ,"key104" : "Number of young people reached with a SINGLE SESSION of the CSE curriculum"
+                ,"key105" : "Number of educators trained to provide CSE to young people"
+                ,"key106" : "Number of educators trained to provide CSE training to other educators"
+                ,"key107" : "Number of static clinics using ELECTRONIC CMIS"
+                ,"key108" : "Number of static clinics using MANUAL CMIS"
+                ,"key109" : "Number of static clinics using partly MANUAL and partly ELECTRONIC CMIS"
+                ,"key110" : "Number of static clinics where NO CMIS is used"
+                ,"key111" : "Does your Association have designated staff responsible for CMIS support?"
+                ,"key112" : "CMIS systems used UPLOAD DOC"
+                ,"key113" : "Please provide details of the number of clients who would recomment your service"
+                ,"key114" : "Number of service users surveyed who responded ‘Yes’ to the question “Would you recommend this facility to a family member or friend”"
+                ,"key115" : " TOTAL number of service users surveyed"
+                ,"key116" : "Client satisfaction score"
+                ,"key117" : "Yes - Other"
+                ,"Key118" : "Prisioners"
+                },
+                "fr": {
+                    "key1": "Politique"
+                    ,
+                    "key2": "Parmi les services de SSR suivants, quels sont ceux que votre association a dispensés dans une situation de crise humanitaire au cours de l’année qui vient de s’écouler? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key3": "S'il vous plaît entrer un autre «valeur pour cette sélection."
+                    ,
+                    "key4": "Contraception"
+                    ,
+                    "key5": "Soins pour un avortement sans risque"
+                    ,
+                    "key6": "IST/IAG"
+                    ,
+                    "key7": "VIH"
+                    ,
+                    "key8": "Gynécologie"
+                    ,
+                    "key9": "Obstétrique"
+                    ,
+                    "key10": "Dépistage de violence basée sur le genre"
+                    ,
+                    "key11": "Pédiatrie"
+                    ,
+                    "key12": "Services de conseil spécialisé"
+                    ,
+                    "key13": "Autre"
+                    ,
+                    "key14": "Aucun"
+                    ,
+                    "key15": "Quels types de programmes/initiatives axés sur le genre votre association a-t-elle mis en œuvre au cours de l’année qui vient de s’écouler? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key16": "S'il vous plaît entrer un autre «valeur pour cette sélection."
+                    ,
+                    "key17": "Diversité du genre"
+                    ,
+                    "key18": "Violence basée sur le genre"
+                    ,
+                    "key19": "Renforcement des capacités en genre"
+                    ,
+                    "key20": "Besoins des hommes"
+                    ,
+                    "key21": "Rôle des hommes en matière d’égalité des genres"
+                    ,
+                    "key22": "Suivi et évaluation de programmes relatifs au genre"
+                    ,
+                    "key23": "Soutien aux personnes transgenres"
+                    ,
+                    "key24": "Autonomisation des femmes"
+                    ,
+                    "key25": "Participation des femmes"
+                    ,
+                    "key26": "Droits de la femme dans les cliniques"
+                    ,
+                    "key29": "Votre association a-t-elle mis en œuvre des programmes (plaidoyer, autonomisation, prestation de services d’information, d’éducation à la SSR) auprès de l’un des groupes vulnérables ou démunis suivants au cours de l’année qui vient de s’écouler ? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key30": "Please enter an 'other' value for this selection."
+                    ,
+                    "key31": "Les homosexuels, hommes bisexuels et autres hommes ayant des rapports sexuels avec des hommes"
+                    ,
+                    "key32": "Les personnes intersexuées et autres personnes ayant diverses caractéristiques sexuelles"
+                    ,
+                    "key33": "Les lesbiennes, femmes bisexuelles et autres femmes ayant des rapports sexuels avec des femmes"
+                    ,
+                    "key34": "Les migrants"
+                    ,
+                    "key35": "Les personnes âgées de 50 ans et plus"
+                    ,
+                    "key36": "Les personnes vivant en dessous du seuil de pauvreté national"
+                    ,
+                    "key37": "Les personnes vivant avec le VIH"
+                    ,
+                    "key38": "Les personnes consommateurs de drogues injectables ou non"
+                    ,
+                    "key39": "Les personnes handicapées"
+                    ,
+                    "key40": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key41": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key42": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key43": "Les travailleur(se)s du sexe les autres personnes qui pratiquent le commerce du sexe"
+                    ,
+                    "key44": "Les personnes transgenres et les autres personnes ayant diverses identités/expressions de genre"
+                    ,
+                    "key47": "Votre association a-t-elle déjà eu l’occasion d’utiliser l’outil Inside & Out pour évaluer votre cursus ESI de l’année qui vient de s'écouler?"
+                    ,
+                    "key48": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key49": "Votre association possède-t-elle une  politique écrite de protection de l’enfant ?"
+                    ,
+                    "key50": "Veuillez télécharger un exemplaire de votre évaluation politique de protection de l’enfant"
+                    ,
+                    "key51": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key52": "Veuillez expliquer la raison pour laquelle votre association ne possède pas de politique de protection de l’enfant (en un maximum de 50 mots)."
+                    ,
+                    "key53": "Votre association possède-t-elle une politique écrite relative à l’égalité entre les genres ?"
+                    ,
+                    "key54": "Veuillez expliquer la raison pour laquelle votre association ne possède pas de politique écrite en matière d’égalité entre les genres (en un maximum de 50 mots)."
+                    ,
+                    "key55": "Votre association a-t-elle participé au Fonds mondial de lutte contre le sida, la tuberculose et le paludisme au cours de l’année qui vient de s’écouler? (Veuillez cocher toutes les cases correspondantes)"
+                    ,
+                    "key56": "Oui, en tant que membre du Mécanisme de coordination pays"
+                    ,
+                    "key57": "Oui, comme agent d’exécution de subsides du Fonds mondial à titre de bénéficiaire principal"
+                    ,
+                    "key58": "Oui, comme agent d’exécution de subsides du Fonds mondial à titre de sous-bénéficiaire"
+                    ,
+                    "key59": "Non, n’y participant pas actuellement bien que le pays soit admissible à recevoir une allocation de fonds"
+                    ,
+                    "key60": "S.O., pays non admissible"
+                    ,
+                    "key61": "Oui, autre, veuillez préciser :"
+                    ,
+                    "key62": "Objectif de développement durable"
+                    ,
+                    "key63": "Votre association a-t-elle poursuivi des activités de plaidoyer visant à influencer le gouvernement pour établir des objectifs au niveau du pays et/ou lui demander des comptes, à savoir les objectifs 3.1, 3.3 et 3.7 (pour l’Objectif de développement durable 3) et/ou l’objectif 5.6 (pour l’Objectif de développement durable 5) au cours de l’année qui vient de s’écouler?"
+                    ,
+                    "key64": "Veuillez décrire les activités de plaidoyer que votre association a entreprises en vue d’influencer le gouvernement pour établir des objectifs au niveau du pays et/ou lui demander des comptes, à savoir les objectifs 3.1, 3.3 et 3.7 et/ou 5.6 et les résultats obtenus (en un maximum de 100 mots)"
+                    ,
+                    "key65": "Mobilisation de ressources"
+                    ,
+                    "key66": "Veuillez remplir le tableau ci-dessous sur les efforts de votre association de collecte de fonds sur le plan local."
+                    ,
+                    "key67": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key68": "Possibilités de financement locales relevées par votre association"
+                    ,
+                    "key69": "Possibilités de financement locales auxquelles l’association a postulé"
+                    ,
+                    "key70": "Demandes de financement locales que votre association s’est vue octroyer"
+                    ,
+                    "key71": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key72": "Ce nombre comprend tous les membres à plein temps, à temps partiel, permanents et temporaires employés par l’Association à TOUS les niveaux (aux sièges, dans les antennes et sur les sites des projets). Les jeunes bénévoles n’en font pas partie. Chaque membre du personnel à temps partiel doit être compté comme un (et non sous forme de fractions)."
+                    ,
+                    "key73": "Personnel de l'Association: Femmes"
+                    ,
+                    "key74": "Personnel de l'Association: Hommes"
+                    ,
+                    "key75": "Personnel de l'Association: personnel qui préfèrent ne pas s’identifier comme hommes ou femmes"
+                    ,
+                    "key76": "Total du personnel"
+                    ,
+                    "key77": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key78": "Le terme comite de direction signifie l'organe de decision sur le plan national de l'Association Membre qui est elu par les membres benevoles ou leurs representants de l'Association Membre en question. Veuilles noter que la mention 'moins de 25 ans' se refere aux individus qui ont moins de 25 ans au moment de l'election du dernier comite de direction."
+                    ,
+                    "key79": "Nombre total de BÉNÉVOLES"
+                    ,
+                    "key80": "Nombre total d’ACTIVISTES"
+                    ,
+                    "key81": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key82": "La plus grande catégorie en ligne"
+                    ,
+                    "key83": "La plus grande catégorie hors-ligne"
+                    ,
+                    "key84": "Total des messages positifs en ligne"
+                    ,
+                    "key85": "Total des messages positifs hors ligne"
+                    ,
+                    "key86": "Email / Newsletter / E-actions"
+                    ,
+                    "key87": "Dépliants / Flyers"
+                    ,
+                    "key88": "Affiches"
+                    ,
+                    "key89": "Théâtre / événement public"
+                    ,
+                    "key90": "Rapport / Brochure"
+                    ,
+                    "key91": "Hotline téléphonique"
+                    ,
+                    "key93": "Facebook"
+                    ,
+                    "key94": "Email / Newsletter / E-actions"
+                    ,
+                    "key95": "Sites Internet"
+                    ,
+                    "key96": "SMS / Texte / Whatsapp / Instagram"
+                    ,
+                    "key97": "Gazouillement"
+                    ,
+                    "key98": "Youtube"
+                    ,
+                    "key100": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key101": "Formation des éducateurs pairs : Une formation initiale ou une formation d’accompagnement continue des jeunes en tant qu’éducateurs pairs ou promoteurs de la santé des jeunes qui animent les séances d’éducation à la sexualité."
+                    ,
+                    "key102": "Nombre de jeunes contactés par l’AM avec une série COMPLÈTE du programme ESI"
+                    ,
+                    "key103": "Nombre de jeunes contactés par l’AM avec un SOUS-ENSEMBLE du programme ESI"
+                    ,
+                    "key104": "Nombre de jeunes contactés par l’AM avec des SESSIONS INDIVIDUELLES du programme ESI"
+                    ,
+                    "key105": "combien d’éducateurs les volontaires ou le personnel de votre Association ont-ils formé fournir l’ESI aux jeunes"
+                    ,
+                    "key106": "combien d’éducateurs les volontaires ou le personnel de votre Association ont-ils formé fournir la formation en ESI à d’autres éducateurs"
+                    ,
+                    "key107": "Nombre de cliniques statiques avec un système d’information hospitalier électronique"
+                    ,
+                    "key108": "Nombre de cliniques statiques avec un système d’information hospitalier manuel"
+                    ,
+                    "key109": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key110": "Nombre de cliniques statiques qui n’utilisent pas un système d’information hospitalier"
+                    ,
+                    "key111": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key112": "Le type de système d’information hospitalier utilisés"
+                    ,
+                    "key113": "@@@@@@@@@@@@@@@@@@@@"
+                    ,
+                    "key114": "Nombre d’utilisateurs de service qui ont répondu « Oui » à la question « Recommanderiez-vous cet établissement à un membre de votre famille ou à un ami ? »"
+                    ,
+                    "key115": "Nombre TOTAL d’utilisateurs de service interrogés"
+                    ,
+                    "key116": "@@@@@@@@@@@@@@@@@@@@"
 
-        );
+                },
+                "ar": {
 
+                "key1": "البرامج والسياسات"
+                ,
+                "key2": ">أي خدمة من خدمات الصحة الجنسية والإنجابية الآتية قدمتها جمعيتكم في أوضاع إنسانية في العام الماضي "
+                ,
+                "key3": "Please enter an 'other' value for this selection."
+                ,
+                "key4": "منع الحمل"
+                ,
+                "key5": "رعاية الإجهاض الآمن"
+                ,
+                "key6": "الأمراض المنقولة جنسياً/عدوى الجهاز التناسلي"
+                ,
+                "key7": "فيروس نقص المناعة البشري (HIV)"
+                ,
+                "key8": "طب النساء"
+                ,
+                "key9": "التوليد"
+                ,
+                "key10": "التحري عن العنف القائم على النوع الاجتماعي"
+                ,
+                "key11": "طب الأطفال"
+                ,
+                "key12": "مشورة متخصصة"
+                ,
+                "key13": "غير ذلك - حدِّد من فضلك"
+                ,
+                "key14": ""
+                ,
+                "key15": "ما هي أنواع المبادرات/البرامج المرتكزة على النوع الاجتماعي التي نفذتها جمعيتكم في العام الماضي (يناير-ديسمبر "
+                ,
+                "key16": "Please enter an 'other' value for this selection."
+                ,
+                "key17": "التنوع"
+                ,
+                "key18": "العنف القائم على النوع الاجتماعي"
+                ,
+                "key19": "بناء قدرات في مجال النوع الاجتماعي"
+                ,
+                "key20": "احتياجات الرجل"
+                ,
+                "key21": "دور الرجل في المساواة بين الجنسين"
+                ,
+                "key22": "متابعة وتقييم برامج النوع الاجتماعي"
+                ,
+                "key23": "دعم المتحولين جنسياً"
+                ,
+                "key24": "تمكين المرأة"
+                ,
+                "key25": "مشاركة المرأة"
+                ,
+                "key26": "حقوق المرأة في العيادات"
+                ,
+                "key29": "هل نفذت جمعيتكم برامج (دعوة، تمكين، توفير معلومات عن الصحة الجنسية والإنجابية، خدمات تثقيفية) مع أي من المجموعات المستضعفة أو المحرومة من الخدمات التالية في العام الماضي "
+                ,
+                "key30": "Please enter an 'other' value for this selection."
+                ,
+                "key31": "اللواطيون، ولذين يمارسون الجنس مع الجنسين والرجال الذين يمارسون الجنس مع الرجال"
+                ,
+                "key32": "الخناثى، وغيرهم من ذوي الخصائص الجنسية المتنوعة"
+                ,
+                "key33": "السحاقيات، النساء اللواتي يمارسن الجنس مع الجنسين، وغيرهن من النساء اللواتي يمارسن الجنس مع نساء"
+                ,
+                "key34": "المهاجرون"
+                ,
+                "key35": "من تتراوح أعمارهم بين 50 سنة وما فوق"
+                ,
+                "key36": "من يعيشون تحت خط الفقر في وطنهم"
+                ,
+                "key37": "المتعايشون مع فيروس نقص المناعة البشري"
+                ,
+                "key38": "من يتعاطون المخدرات بالحقن أو غير ذلك"
+                ,
+                "key39": "ذوي الاحتياجات الخاصة"
+                ,
+                "key40": ""
+                ,
+                "key41": ""
+                ,
+                "key42": ""
+                ,
+                "key43": "العاملون في مجال الجنس، وغيرهم من الناس الذين يبيعون الجنس"
+                ,
+                "key44": "المتحولون جنسياً، وغيرهم من الأشخاص الذين لديهم هويات/خصائص جنسية متنوعة"
+                ,
+                "key47": ">هل استخدمت جمعيتكم من قبل أداة المتابعة(inside &Out tool) وذلك لتقييم منهج التثقيف الجنسي الشامل؟"
+                ,
+                "key48": ""
+                ,
+                "key49": "هل يوجد لدى جمعيتكم سياسة لحماية الطفل؟*"
+                ,
+                "key50": "يرجى تحميل نسخة من سياسة حماية الطفل الخاصة بجمعيتكم."
+                ,
+                "key51": ""
+                ,
+                "key52": "يرجى توضيح لماذا لا توجد لديكم سياسة لحماية الطفل (في ما لا يزيد عن 50 كلمة)</div>"
+                ,
+                "key53": "هل يوجد لدى جمعيتكم سياسة للمساواة بين الجنسين؟"
+                ,
+                "key54": "يرجى توضيح لماذا لا توجد لدى جمعيتكم سياسة مكتوبة للمساواة بين الجنسين (في ما لا يزيد عن 50 كلمة)."
+                ,
+                "key55": "هل شاركت جمعيتكم في الصندوق العالمي لمكافحة الإيدز والسل والملاريا في العام الماضي "
+                ,
+                "key56": "نعم - عضو في آلية التنسيق الوطنية"
+                ,
+                "key57": "نعم - منفذة لمنحة الصندوق العالمي كمتلقٍ رئيسي"
+                ,
+                "key58": "نعم - منفذة لمنحة الصندوق العالمي كمتلقٍ فرعي"
+                ,
+                "key59": "لا - غير مشاركة حالياً على الرغم من أنها مؤهلة للحصول على مخصصات التمويل"
+                ,
+                "key60": "لا يوجد - البلد غير مؤهلة"
+                ,
+                "key61": "نعم، غير ما سبق، حدد من فضلك"
+                ,
+                "key62": "الدعوة"
+                ,
+                "key63": "هل قامت جمعيتكم بأنشطة الدعوة للتأثير على الحكومة لوضع و/أو تحقيق أهداف على المستوى الجهوي 3.1 و 3.3 و 3.7 (للهدف 3 من أهداف التنمية المستدامة) و/أو غاية 5.6 (للهدف 5 من أهداف التنمية المستدامة) في العام الماضي؟."
+                ,
+                "key64": "يرجى ذكر أنشطة الدعوة بالتفصيل التي قامت بها جمعيتكم للتأثير على الحكومة لوضع و/أو تحقيق أهداف على المستوى الجهوي 3.1، 3.3، 3.7 و/أو 5.6 والنتائج التي تحققت (في ما لا يزيد عن 100 كلمة)"
+                ,
+                "key65": "تعبئة الموارد"
+                ,
+                "key66": "يرجى ملء الجدول أدناه بما بذلته جمعيتكم من جهود في مجال جمع الأموال محلياً."
+                ,
+                "key67": ""
+                ,
+                "key68": "فرص التمويل المحلية التي رصدتها جمعيتكم"
+                ,
+                "key69": "فرص التمويل المحلية التي تقدمت لها جمعيتكم"
+                ,
+                "key70": "طلبات التمويل المحلية التي تم منحها لجمعيتكم"
+                ,
+                "key71": ""
+                ,
+                "key72": ""
+                ,
+                "key73": ""
+                ,
+                "key74": ""
+                ,
+                "key75": ""
+                ,
+                "key76": ""
+                ,
+                "key77": ""
+                ,
+                "key78": ""
+                ,
+                "key79": ""
+                ,
+                "key80": ""
+                ,
+                "key81": ""
+                ,
+                "key82": ""
+                ,
+                "key83": ""
+                ,
+                "key84": ""
+                ,
+                "key85": ""
+                ,
+                "key86": ""
+                ,
+                "key87": ""
+                ,
+                "key88": ""
+                ,
+                "key89": ""
+                ,
+                "key90": ""
+                ,
+                "key91": ""
+                ,
+                "key93": ""
+                ,
+                "key94": ""
+                ,
+                "key95": ""
+                ,
+                "key96": ""
+                ,
+                "key97": ""
+                ,
+                "key98": ""
+                ,
+                "key100": ""
+                ,
+                "key101": ""
+                ,
+                "key102": ""
+                ,
+                "key103": ""
+                ,
+                "key104": ""
+                ,
+                "key105": ""
+                ,
+                "key106": ""
+                ,
+                "key107": ""
+                ,
+                "key108": ""
+                ,
+                "key109": ""
+                ,
+                "key110": ""
+                ,
+                "key111": ""
+                ,
+                "key112": ""
+                ,
+                "key113": ""
+                ,
+                "key114": ""
+                ,
+                "key115": ""
+                ,
+                "key116": ""
+
+            }
+            };
+
+            me.translate = function( uiLocale ){
+
+
+                me.tabDivTag.find( "span[keyword]" ).each( function()
+                {
+                    var key = $( this ).attr( "keyword" );
+                    var transValue = me.translateKey( uiLocale, key );
+                    if( transValue !== undefined )
+                    {
+                        $( this ).html( transValue );
+                    }
+
+                });
+
+            };
+
+            me.translateKey = function( lang, key ){
+                if( me.keywords[lang] == undefined ) return undefined;
+                return me.keywords[lang][key];
+            };
+
+        }
     </script>
 
     <div id="tabs-1">
@@ -38,119 +786,119 @@
                 <td colspan="2" rowspan="1" style="background-color: rgb(225, 225, 105); border-color: rgb(0, 0, 0);"><strong>Was your Association involved with The Global Fund to Fight AIDS, Tuberculosis and Malaria in the last year (please tick all that apply)?</strong></td>
             </tr>
             <tr>
-                <td>Gay, bisexual men, and other men who have sex with me</td>
+                <td><span keyword="key31">Gay, bisexual men, and other men who have sex with me</span></td>
                 <td style="width: 20px;">&nbsp;<input id="H27EqnAb1w5-X66r2y4EuwS-val" name="entryfield" title="Marginalised - Gay, bisexual men and other (MWSWM)" value="[ Marginalised - Gay, bisexual men and other (MWSWM) ]" />&nbsp;</td>
-                <td><span style="background-color:#f1c40f;">Monitoring and evaluation of gender programmes</span></td>
+                <td><span keyword="key22"; style="background-color:#f1c40f;">Monitoring and evaluation of gender programmes</span></td>
                 <td><input id="giQU82u50Ht-X66r2y4EuwS-val" name="entryfield" title="Gender focused - M&amp;E of gender programmes" value="[ Gender focused - M&amp;E of gender programmes ]" />&nbsp;</td>
-                <td>Gynaecology&nbsp;</td>
+                <td><span keyword="key8">Gynaecology&nbsp;</span></td>
                 <td style="width: 20px;"><input id="qBZukeLRA3Y-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Gynaecology" value="[ Humanitarian - Gynaecology ]" /></td>
-                <td>Yes - Member of the Country Coordinating Mechanism</td>
+                <td><span keyword="key56">Yes - Member of the Country Coordinating Mechanism</span></td>
                 <td>&nbsp; &nbsp; <input id="ZmSpD1RwRs5-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Country Coordinating Mechanism" value="[ Global Fund - Country Coordinating Mechanism ]" />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
             </tr>
             <tr>
-                <td>Intersex people, and other people with diverse sex characteristics</td>
+                <td><span keyword="key32">Intersex people, and other people with diverse sex characteristics</span></td>
                 <td style="width: 20px;"><input id="b9D9c0hEuij-X66r2y4EuwS-val" name="entryfield" title="Marginalised-Intersex &amp; diverse sex characteristic" value="[ Marginalised-Intersex &amp; diverse sex characteristic ]" /></td>
-                <td><span style="background-color:#f1c40f;">Men&#39;s role in gender equality</span></td>
+                <td><span keyword="key21"; style="background-color:#f1c40f;">Men&#39;s role in gender equality</span></td>
                 <td><input id="Ayc4557czOe-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Men’s role in gender equality" value="[ Gender focused - Men’s role in gender equality ]" /></td>
-                <td>Safe abortion care</td>
+                <td><span keyword="key5">Safe abortion care</span></td>
                 <td><input id="y9s5JiFfw6X-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Safe abortion care" value="[ Humanitarian - Safe abortion care ]" /></td>
-                <td>Yes - Implementer of Global Fund grant as Principal Recipient</td>
+                <td><span keyword="key57">Yes - Implementer of Global Fund grant as Principal Recipient</span></td>
                 <td><input id="yHXb4ZFGGjq-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Implementer as Principal Recipient" value="[ Global Fund - Implementer as Principal Recipient ]" /></td>
             </tr>
             <tr>
-                <td>Lesbian, bisexual women, and other women who have sex with women</td>
+                <td><span keyword="key33">Lesbian, bisexual women, and other women who have sex with women</span></td>
                 <td style="width: 20px;"><input id="ZL0NsMbaLoD-X66r2y4EuwS-val" name="entryfield" title="Marginalised-Lesbian, bisexual and other (WWSWW)" value="[ Marginalised-Lesbian, bisexual and other (WWSWW) ]" /></td>
-                <td><span style="background-color:#f1c40f;">Support for transgender people</span></td>
+                <td><span keyword="key23" style="background-color:#f1c40f;">Support for transgender people</span></td>
                 <td><input id="bKpZqciJG6V-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Support for transgender people" value="[ Gender focused - Support for transgender people ]" /></td>
-                <td>Obstetrics</td>
+                <td><span keyword="key9">Obstetrics</span></td>
                 <td><input id="ntGfErifKwj-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Obstetrics" value="[ Humanitarian - Obstetrics ]" /></td>
-                <td>Yes - Implementer of Global Fund grant as Sub-Recipient&nbsp;</td>
+                <td><span keyword="key57">Yes - Implementer of Global Fund grant as Sub-Recipient&nbsp;</span></td>
                 <td><input id="SHvMizMt93o-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Implementer as Sub-Recipient" value="[ Global Fund - Implementer as Sub-Recipient ]" /></td>
             </tr>
             <tr>
-                <td>Migrants</td>
+                <td><span keyword="key34">Migrants</span></td>
                 <td style="width: 20px;"><input id="SOaZzR6Ehbp-X66r2y4EuwS-val" name="entryfield" title="Marginalised - Migrants" value="[ Marginalised - Migrants ]" /></td>
-                <td><span style="background-color:#f1c40f;">Women&#39;s empowerment</span></td>
+                <td><span keyword="24"; style="background-color:#f1c40f;">Women&#39;s empowerment</span></td>
                 <td><input id="mDZPpiVUzm1-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Women’s empowerment" value="[ Gender focused - Women’s empowerment ]" /></td>
-                <td>Contraception</td>
+                <td><span keyword="key4">Contraception</span></td>
                 <td><input id="RoQEBzKRM8q-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Contraception" value="[ Humanitarian - Contraception ]" /></td>
-                <td>No - Not currently involved despite country being eligible to receive a funding allocation</td>
+                <td><span keyword="key59">No - Not currently involved despite country being eligible to receive a funding allocation</span></td>
                 <td><input id="GaLPIe4MGSk-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Not involved, Country eligible" value="[ Global Fund - Not involved, Country eligible ]" /></td>
             </tr>
             <tr>
-                <td>Refugees/&quot;migrants in transit&quot;/Asylum seekers</td>
+                <td><span keyword="key42">Refugees/&quot;migrants in transit&quot;/Asylum seekers</span></td>
                 <td style="width: 20px;"><input id="sqjNhZX4Hhm-X66r2y4EuwS-val" name="entryfield" title="Marginalised -Refugees/”transiting”/Asylum Seekers" value="[ Marginalised -Refugees/”transiting”/Asylum Seekers ]" /></td>
-                <td><span style="background-color:#f1c40f;">Men&#39;s needs</span></td>
+                <td><span keyword="20"; style="background-color:#f1c40f;">Men&#39;s needs</span></td>
                 <td><input id="UXB5agt1y8Y-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Men’s needs" value="[ Gender focused - Men’s needs ]" /></td>
-                <td>HIV</td>
+                <td><span keyword="key7">HIV</span></td>
                 <td><input id="iR65twVdhuT-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - HIV" value="[ Humanitarian - HIV ]" /></td>
-                <td>N/A - Country not eligible</td>
+                <td><span keyword="key60">N/A - Country not eligible</span></td>
                 <td><input id="yh6hYtds5LG-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Not involved, Country NOT eligible" value="[ Global Fund - Not involved, Country NOT eligible ]" /></td>
             </tr>
             <tr>
-                <td>Nomadic people</td>
+                <td><span keyword="key41">Nomadic people</span></td>
                 <td style="width: 20px;"><input id="Z84Y0p65NyY-X66r2y4EuwS-val" name="entryfield" title="Marginalised - Nomadic" value="[ Marginalised - Nomadic ]" /></td>
-                <td><span style="background-color:#f1c40f;">Women&#39;s rights in clinics</span></td>
+                <td><span keyword="key26" style="background-color:#f1c40f;">Women&#39;s rights in clinics</span></td>
                 <td><input id="Wvvl8nBZFfN-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Women's rights in clinics" value="[ Gender focused - Women's rights in clinics ]" /></td>
-                <td>Specialized counselling</td>
+                <td><span keyword="key12">Specialized counselling</span></td>
                 <td><input id="o8ezuC4bbMR-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Specialized counselling" value="[ Humanitarian - Specialized counselling ]" /></td>
-                <td>Yes - Other</td>
+                <td><span keyword="key17">Yes - Other</span></td>
                 <td><input id="t390IjDGqgH-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Yes (other)" value="[ Global Fund - Yes (other) ]" /></td>
             </tr>
             <tr>
-                <td>People aged 50 years and older</td>
+                <td><span keyword="key35">People aged 50 years and older</span></td>
                 <td style="width: 20px;"><input id="sRJClvurIFD-X66r2y4EuwS-val" name="entryfield" title="Marginalised - People aged 50 years and older" value="[ Marginalised - People aged 50 years and older ]" /></td>
-                <td><span style="background-color:#f1c40f;">Women&#39;s participation</span></td>
+                <td><span keyword="key25"; style="background-color:#f1c40f;">Women&#39;s participation</span></td>
                 <td><input id="A63OqSFaiUB-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Women’s participation" value="[ Gender focused - Women’s participation ]" /></td>
-                <td>Paediatrics</td>
+                <td><span keyword="key11">Paediatrics</span></td>
                 <td><input id="JWRv9ZKKpvL-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Paediatrics" value="[ Humanitarian - Paediatrics ]" /></td>
                 <td rowspan="1">Please describe any &#39;other&#39; involvement</td>
                 <td rowspan="1"><input id="tvM0ya1XtJf-X66r2y4EuwS-val" name="entryfield" title="Global Fund - Yes (other description)" value="[ Global Fund - Yes (other description) ]" /></td>
             </tr>
             <tr>
-                <td>People living below the national poverty line</td>
+                <td><span keyword="key36">People living below the national poverty line</span></td>
                 <td style="width: 20px;"><input id="BjhNB4O2lkm-X66r2y4EuwS-val" name="entryfield" title="Marginalised - People living below poverty line" value="[ Marginalised - People living below poverty line ]" /></td>
-                <td><span style="background-color:#f1c40f;">Gender-based violence</span></td>
+                <td><span keyword="18";; style="background-color:#f1c40f;">Gender-based violence</span></td>
                 <td><input id="XAkxetBNveh-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Gender-based violence" value="[ Gender focused - Gender-based violence ]" /></td>
-                <td>Gender-based violence screening</td>
+                <td><span keyword="key10">Gender-based violence screening</span></td>
                 <td><input id="bl8Kzcbehsu-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Gender-based violence screening" value="[ Humanitarian - Gender-based violence screening ]" /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>People living with HIV</td>
+                <td><span keyword="key37">People living with HIV</span></td>
                 <td style="width: 20px;"><input id="TjgRpIZHjkU-X66r2y4EuwS-val" name="entryfield" title="Marginalised - People living with HIV" value="[ Marginalised - People living with HIV ]" /></td>
-                <td><span style="background-color:#f1c40f;">Gender diversity&nbsp;</span></td>
+                <td><span keyword="key17"; style="background-color:#f1c40f;">Gender diversity&nbsp;</span></td>
                 <td><input id="Z5xUV7VRpIO-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Gender diversity" value="[ Gender focused - Gender diversity ]" /></td>
-                <td>STIs/RTIs</td>
+                <td><span keyword="key6">STIs/RTIs</span></td>
                 <td><input id="qCKvbdZ70Oq-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - STIs/RTIs" value="[ Humanitarian - STIs/RTIs ]" /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>People who inject or use drugs</td>
+                <td><span keyword="key38">People who inject or use drugs</span></td>
                 <td><input id="ODg6Bkp4Tq1-X66r2y4EuwS-val" name="entryfield" title="Marginalised - People who inject or use drugs" value="[ Marginalised - People who inject or use drugs ]" /></td>
-                <td><span style="background-color:#f1c40f;">Gender capacity building</span></td>
+                <td><span keyword="key19";style="background-color:#f1c40f;">Gender capacity building</span></td>
                 <td><input id="qiVIGrSwB8G-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Gender capacity building" value="[ Gender focused - Gender capacity building ]" /></td>
-                <td>Other</td>
+                <td><span keyword="key13">Other</span></td>
                 <td><input id="bONYxK0II8D-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Other" value="[ Humanitarian - Other ]" /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>People with disabilities</td>
+                <td><span keyword="key39">People with disabilities</span></td>
                 <td><input id="W7JAmn6HGDE-X66r2y4EuwS-val" name="entryfield" title="Marginalised - People with disabilities" value="[ Marginalised - People with disabilities ]" /></td>
-                <td>Other</td>
+                <td><span keyword="key13">Other</span></td>
                 <td><input id="lqxhihI4qCm-X66r2y4EuwS-val" name="entryfield" title="Gender focused - Other" value="[ Gender focused - Other ]" /></td>
-                <td>None</td>
+                <td><span keyword="key14">None</span></td>
                 <td><input id="xPoI1Fe3hAO-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - None" value="[ Humanitarian - None ]" /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>Prisoners</td>
+                <td><span keyword="key118">Prisoners</span></td>
                 <td style="width: 20px;"><input id="fyR6v4yBa7M-X66r2y4EuwS-val" name="entryfield" title="Marginalised - Prisoners" value="[ Marginalised - Prisoners ]" /></td>
-                <td>None</td>
+                <td><span keyword="key14">None</span></td>
                 <td><input id="wOs06pLKmHt-X66r2y4EuwS-val" name="entryfield" title="Gender focused - None" value="[ Gender focused - None ]" /></td>
                 <td>Please describe any &#39;other&#39; SRH services</td>
                 <td><input id="cJEeE0m0ovs-X66r2y4EuwS-val" name="entryfield" title="Humanitarian - Other (specify)" value="[ Humanitarian - Other (specify) ]" /></td>
@@ -158,7 +906,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>Sex workers, and other people who sell sex</td>
+                <td><span keyword="key43">Sex workers, and other people who sell sex</span></td>
                 <td style="width: 20px;"><input id="urnN2VL6ESP-X66r2y4EuwS-val" name="entryfield" title="Marginalised - Sex workers, &amp; people who sell sex" value="[ Marginalised - Sex workers, &amp; people who sell sex ]" /></td>
                 <td>Please describe any &#39;other&#39; programmes</td>
                 <td><input id="AKksQOU71Mu-X66r2y4EuwS-val" name="entryfield" title="Gender Focused - Other write in" value="[ Gender Focused - Other write in ]" /></td>
@@ -168,7 +916,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>Transgender people, and other people with diverse gender identities/expressions</td>
+                <td><span keyword="key44">Transgender people, and other people with diverse gender identities/expressions<span keyword="key44"></td>
                 <td style="width: 20px;"><input id="D6bc8Z9EyWe-X66r2y4EuwS-val" name="entryfield" title="Marginalised - Transgender, diverse gender exp. " value="[ Marginalised - Transgender, diverse gender exp.  ]" /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -188,7 +936,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>None</td>
+                <td><span keyword="key14">None</span></td>
                 <td style="width: 20px;"><input id="OqienUlEtSF-X66r2y4EuwS-val" name="entryfield" title="Marginalised - None" value="[ Marginalised - None ]" /></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
@@ -217,7 +965,7 @@
         <table border="1" cellpadding="1" cellspacing="1" style="width:500px;">
             <tbody>
             <tr>
-                <td colspan="3" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong>Please provide details of the make up of your Associations&#39; staffing.</strong></td>
+                <td colspan="3" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong><span keyword="key77">Please provide details of the make up of your Associations&#39; staffing.</span></strong></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -225,23 +973,23 @@
                 <td>25+</td>
             </tr>
             <tr>
-                <td>Number of staff members who identify as FEMALE</td>
+                <td><span keyword="key73">Number of staff members who identify as FEMALE</td>
                 <td><input id="VEZnlGAr5rn-BpkvMcVXQgy-val" name="entryfield" title="GI - No. of Staff members who identify as FEMALE Unknown Gender, 0 - 24" value="[ GI - No. of Staff members who identify as FEMALE Unknown Gender, 0 - 24 ]" /></td>
                 <td><input id="VEZnlGAr5rn-mYU1cpPLbA3-val" name="entryfield" title="GI - No. of Staff members who identify as FEMALE Unknown Gender, 25 +" value="[ GI - No. of Staff members who identify as FEMALE Unknown Gender, 25 + ]" /></td>
             </tr>
             <tr>
-                <td>Number of staff members who identify as MALE</td>
+                <td><span keyword="key74">Number of staff members who identify as MALE</span></td>
                 <td><input id="ECEGJMv7iks-BpkvMcVXQgy-val" name="entryfield" title="GI - No. of Staff members who identify as MALE Unknown Gender, 0 - 24" value="[ GI - No. of Staff members who identify as MALE Unknown Gender, 0 - 24 ]" /></td>
                 <td><input id="ECEGJMv7iks-mYU1cpPLbA3-val" name="entryfield" title="GI - No. of Staff members who identify as MALE Unknown Gender, 25 +" value="[ GI - No. of Staff members who identify as MALE Unknown Gender, 25 + ]" /></td>
             </tr>
             <tr>
-                <td>Number of staff members who identify with another gender identity</td>
+                <td><span keyword="key75">Number of staff members who identify with another gender identity</span></td>
                 <td><input id="qjLXdKH5q8D-BpkvMcVXQgy-val" name="entryfield" title="GI - No. of Staff members who identify with another gender identity Unknown Gender, 0 - 24" value="[ GI - No. of Staff members who identify with another gender identity Unknown Gender, 0 - 24 ]" /></td>
                 <td><input id="qjLXdKH5q8D-mYU1cpPLbA3-val" name="entryfield" title="GI - No. of Staff members who identify with another gender identity Unknown Gender, 25 +" value="[ GI - No. of Staff members who identify with another gender identity Unknown Gender, 25 + ]" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>Total staff</td>
+                <td><span keyword="key76">Total staff</span></td>
                 <td><input id="indicatorCeasIPw2HTP" indicatorid="CeasIPw2HTP" name="indicator" readonly="readonly" title="Staff members - TOTAL" value="[ Staff members - TOTAL ]" /></td>
             </tr>
             </tbody>
@@ -255,11 +1003,11 @@
                 <td colspan="2" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong>Please provide the total number of VOLUNTEERS and ACTIVISTS that work with your Association.</strong></td>
             </tr>
             <tr>
-                <td>Total number of VOLUNTEERS</td>
+                <td><span keyword="key79">Total number of VOLUNTEERS</span></td>
                 <td><input id="nTXYhz6Nyyc-X66r2y4EuwS-val" name="entryfield" title="Number of ALL volunteers" value="[ Number of ALL volunteers ]" /></td>
             </tr>
             <tr>
-                <td>Total number of ACTIVISTS&nbsp;</td>
+                <td><span keyword="key80">Total number of ACTIVISTS&nbsp;</span></td>
                 <td><input id="yXzgT3pG3Np-X66r2y4EuwS-val" name="entryfield" title="GI - Total number of ACTIVISTS" value="[ GI - Total number of ACTIVISTS ]" /></td>
             </tr>
             </tbody>
@@ -270,16 +1018,16 @@
         <table border="1" cellpadding="1" cellspacing="1" style="width:500px;">
             <tbody>
             <tr>
-                <td colspan="4" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong>Please provide the LARGEST figure for each of your ONLINE and OFFLINE positive messaging distribution in the past year.&nbsp;</strong></td>
+                <td colspan="4" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong><span keyword="key100">Please provide the LARGEST figure for each of your ONLINE and OFFLINE positive messaging distribution in the past year.&nbsp;</span></strong></td>
             </tr>
             <tr>
                 <td colspan="2" rowspan="1" style="text-align: center;">ONLINE</td>
                 <td colspan="2" rowspan="1" style="text-align: center;">OFFLINE</td>
             </tr>
             <tr>
-                <td>Largest online category</td>
+                <td><span keyword="key82">Largest online category</span></td>
                 <td><input id="OaE0bGaKAMK-X66r2y4EuwS-val" name="entryfield" title="Positive Messages - Online largest TYPE" value="[ Positive Messages - Online largest TYPE ]" /></td>
-                <td>Largest offline category</td>
+                <td><span keyword="key83">Largest offline category</span></td>
                 <td><input id="eqsAXkYJZa2-X66r2y4EuwS-val" name="entryfield" title="Positive Messages Offline Largest Type" value="[ Positive Messages Offline Largest Type ]" /></td>
             </tr>
             <tr>
@@ -289,9 +1037,9 @@
                 <td><input id="uuuDq9Y2sQg-X66r2y4EuwS-val" name="entryfield" title="Positive Messages Offline Other Type" value="[ Positive Messages Offline Other Type ]" /></td>
             </tr>
             <tr>
-                <td>Total online positive messages</td>
+                <td><span keyword="key84">Total online positive messages</span></td>
                 <td><input id="agi3X2taxnD-X66r2y4EuwS-val" name="entryfield" title="GI - Positive Messages - Largest Online" value="[ GI - Positive Messages - Largest Online ]" /></td>
-                <td>Total offline positive messages</td>
+                <td><span keyword="key85">Total offline positive messages</span></td>
                 <td><input id="glWkZAJK7l4-X66r2y4EuwS-val" name="entryfield" title="GI - Positive Messages - Largest offline" value="[ GI - Positive Messages - Largest offline ]" /></td>
             </tr>
             </tbody>
@@ -317,15 +1065,15 @@
                 <td><input id="EsgAN2Y2Xtk-X66r2y4EuwS-val" name="entryfield" title="GI - CSE - Young people reached by MA with a PARTIAL series of the CSE curriculum" value="[ GI - CSE - Young people reached by MA with a PARTIAL series of the CSE curriculum ]" /></td>
             </tr>
             <tr>
-                <td>Number of young people reached with a SINGLE SESSION of the CSE curriculum</td>
+                <td><span keyword="key104">Number of young people reached with a SINGLE SESSION of the CSE curriculum</span></td>
                 <td><input id="i61ppnn5QU0-X66r2y4EuwS-val" name="entryfield" title="GI - CSE - Young people reached by MA with SINGLE SESSIONS the CSE curriculum" value="[ GI - CSE - Young people reached by MA with SINGLE SESSIONS the CSE curriculum ]" /></td>
             </tr>
             <tr>
-                <td>Number of educators trained to provide CSE to young people</td>
+                <td><span keyword="key105">Number of educators trained to provide CSE to young people</span></td>
                 <td><input id="nEWBPYgbyez-X66r2y4EuwS-val" name="entryfield" title="GI - CSE - Enab - In the last year how many educators did your Association volunteers or staff train to provide CSE to young people?	" value="[ GI - CSE - Enab - In the last year how many educators did your Association volunteers or staff train to provide CSE to young people?	 ]" /></td>
             </tr>
             <tr>
-                <td>Number of educators trained to provide CSE training to other educators</td>
+                <td><span keyword="key106">Number of educators trained to provide CSE training to other educators</span></td>
                 <td><input id="TJLkBC4hR8Z-X66r2y4EuwS-val" name="entryfield" title="GI - CSE - Enab - In the last year how many educators did your Association volunteers or staff train to provide CSE training to other educators?" value="[ GI - CSE - Enab - In the last year how many educators did your Association volunteers or staff train to provide CSE training to other educators? ]" /></td>
             </tr>
             <tr>
@@ -333,7 +1081,7 @@
                 <td><input id="eh41Ztcw9LL-X66r2y4EuwS-val" name="entryfield" title="Inside &amp; Out - have used" value="[ Inside &amp; Out - have used ]" />Yes&nbsp;<input name="No" type="checkbox" />No</td>
             </tr>
             <tr>
-                <td>Please upload a copy of your most recent Inside &amp; Out assessment.</td>
+                <td><span keyword="key48">Please upload a copy of your most recent Inside &amp; Out assessment.</span></td>
                 <td><input id="e29RtDHzX99-X66r2y4EuwS-val" name="entryfield" title="Inside &amp; Out - upload" value="[ Inside &amp; Out - upload ]" /></td>
             </tr>
             </tbody>
@@ -344,7 +1092,7 @@
         <table border="1" cellpadding="1" cellspacing="1" style="width:500px;">
             <tbody>
             <tr>
-                <td colspan="3" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong>Please provide details of the make up of your Associations&#39; Governing Board.</strong></td>
+                <td colspan="3" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong><span keyword="key77">Please provide details of the make up of your Associations&#39; Governing Board.</span></strong></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -382,23 +1130,23 @@
                 <td colspan="2" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><strong>Please provide details of your clinic Client Management Information Systems</strong></td>
             </tr>
             <tr>
-                <td>Number of static clinics using ELECTRONIC CMIS</td>
+                <td><span keyword="key107">Number of static clinics using ELECTRONIC CMIS</span></td>
                 <td><input id="CIJRZlfkPBF-X66r2y4EuwS-val" name="entryfield" title="# of Static clinics with electronic CMIS" value="[ # of Static clinics with electronic CMIS ]" /></td>
             </tr>
             <tr>
-                <td>Number of static clinics using MANUAL CMIS</td>
+                <td><span keyword="key108">Number of static clinics using MANUAL CMIS</td>
                 <td><input id="fKg2lylnmF5-X66r2y4EuwS-val" name="entryfield" title="# of Static clinics with manual CMIS" value="[ # of Static clinics with manual CMIS ]" /></td>
             </tr>
             <tr>
-                <td>Number of static clinics using partly MANUAL and partly ELECTRONIC CMIS</td>
+                <td><span keyword="key109">Number of static clinics using partly MANUAL and partly ELECTRONIC CMIS</td>
                 <td><input id="ACFv8EaRz3y-X66r2y4EuwS-val" name="entryfield" title="# of Static clinics -part manual &amp; electronic CMIS" value="[ # of Static clinics -part manual &amp; electronic CMIS ]" /></td>
             </tr>
             <tr>
-                <td>Number of static clinics where NO CMIS is used</td>
+                <td><span keyword="key110">Number of static clinics where NO CMIS is used</span></td>
                 <td><input id="WVa2XqC7xMF-X66r2y4EuwS-val" name="entryfield" title="# of Static clinics where NO CMIS used" value="[ # of Static clinics where NO CMIS used ]" /></td>
             </tr>
             <tr>
-                <td>Does your Association have designated staff responsible for CMIS support?</td>
+                <td><span keyword="key111">Does your Association have designated staff responsible for CMIS support?</span></td>
                 <td><input id="kYg2AJWXkS9-X66r2y4EuwS-val" name="entryfield" title="CMIS - designated staff support? " value="[ CMIS - designated staff support?  ]" />Yes&nbsp;<input name="No" type="checkbox" />No</td>
             </tr>
             <tr>
@@ -410,23 +1158,23 @@
     </div>
 
     <div id="tabs-8">
-        <p>Does your Association have a written <span style="background-color:#f1c40f;">child protection policy</span>?</p>
+        <p><span keyword="key49">Does your Association have a written <span style="background-color:#f1c40f;">child protection policy</span>?</span></p>
 
         <p><input id="Xuf0boe9i7A-X66r2y4EuwS-val" name="entryfield" title="Policy -Does you MA have a child protection policy" value="[ Policy -Does you MA have a child protection policy ]" />&nbsp;Yes&nbsp;<input name="" type="checkbox" value="" />No</p>
 
-        <p>Please upload a copy of your child protection policy. Use the additional boxes to upload further documents, if required.&nbsp;</p>
+        <p><span keyword="key50">Please upload a copy of your child protection policy. </span><span keyword="key51">Use the additional boxes to upload further documents, if required.&nbsp;</span></p>
 
         <p><input id="QOpArIrfhzV-X66r2y4EuwS-val" name="entryfield" title="Policy -Child Protection policy upload" value="[ Policy -Child Protection policy upload ]" /><input id="FXCPje8NXwT-X66r2y4EuwS-val" name="entryfield" title="Policy -Child Protection policy upload2" value="[ Policy -Child Protection policy upload2 ]" /><input id="zppDSV2cQtw-X66r2y4EuwS-val" name="entryfield" title="Policy -Child Protection policy upload3" value="[ Policy -Child Protection policy upload3 ]" /></p>
 
-        <p>Please explain why your Association does not have a child protection <span style="background-color:#f1c40f;">policy</span>.</p>
+        <p><span keyword="key52">Please explain why your Association does not have a child protection <span style="background-color:#f1c40f;">policy</span>.</span></p>
 
         <p><input id="j7XPKDrzYNP-X66r2y4EuwS-val" name="entryfield" title="Policy-Explain why no child protection policy" value="[ Policy-Explain why no child protection policy ]" /></p>
 
-        <p>Does your Association have a written <span style="background-color:#f1c40f;">gender equality policy</span>?</p>
+        <p><span keyword="key53">Does your Association have a written <span style="background-color:#f1c40f;">gender equality policy</span>?</span></p>
 
         <p><input id="C0V2Tz0Lk8d-X66r2y4EuwS-val" name="entryfield" title="Policy -Does you MA have a gender equality policy" value="[ Policy -Does you MA have a gender equality policy ]" />&nbsp;Yes<input name="" type="checkbox" value="" />No</p>
 
-        <p>Please explain why your Association does not have a gender equality&nbsp;policy.</p>
+        <p><span keyword="key54">Please explain why your Association does not have a gender equality&nbsp;policy.</span></p>
 
         <p><input id="UCYUs3fdQTY-X66r2y4EuwS-val" name="entryfield" title="Policy -Explain why no gender equality policy" value="[ Policy -Explain why no gender equality policy ]" /></p>
     </div>
@@ -442,11 +1190,11 @@
                 <td>&nbsp; &nbsp;<input id="p2lSvglyx8y-X66r2y4EuwS-val" name="entryfield" title="RES MOB - Local opportunities identified" value="[ RES MOB - Local opportunities identified ]" /></td>
             </tr>
             <tr>
-                <td>Local funding opportunities for which your association applied</td>
+                <td><span keyword="key69">Local funding opportunities for which your association applied</span></td>
                 <td><input id="RHEWA21ZiRK-X66r2y4EuwS-val" name="entryfield" title="RES MOB - Local opportunities applied" value="[ RES MOB - Local opportunities applied ]" /></td>
             </tr>
             <tr>
-                <td>Local funding opportunities that your Association was awarded.</td>
+                <td><span keyword="key70">Local funding opportunities that your Association was awarded.</td>
                 <td><input id="FJjU5qkepNw-X66r2y4EuwS-val" name="entryfield" title="RES MOB - Local opportunities awarded" value="[ RES MOB - Local opportunities awarded ]" /></td>
             </tr>
             </tbody>
@@ -462,7 +1210,7 @@
     </div>
 
     <div id="tabs-9">
-        <p>Did your Association conduct <span style="background-color:#f1c40f;">advocacy</span> activity to influence your government to set and/or deliver country-level targets <span style="background-color:#f1c40f;">3.1, 3.3 and 3.7 (for the Sustainable Development Goal 3) and/or target 5.6</span> (for Sustainable Development Goal 5) in the past year?&nbsp;<input id="xfsi1zMJ2A4-X66r2y4EuwS-val" name="entryfield" title="Adv SDG tracking- Did MA conduct activity" value="[ Adv SDG tracking- Did MA conduct activity ]" />Yes&nbsp;<input name="No" type="checkbox" />No</p>
+        <p><span keyword="key63">Did your Association conduct <span style="background-color:#f1c40f;">advocacy</span> activity to influence your government to set and/or deliver country-level targets <span style="background-color:#f1c40f;">3.1, 3.3 and 3.7 (for the Sustainable Development Goal 3) and/or target 5.6</span> (for Sustainable Development Goal 5) in the past year?&nbsp;</span><input id="xfsi1zMJ2A4-X66r2y4EuwS-val" name="entryfield" title="Adv SDG tracking- Did MA conduct activity" value="[ Adv SDG tracking- Did MA conduct activity ]" />Yes&nbsp;<input name="No" type="checkbox" />No</p>
 
         <table border="1" cellpadding="1" cellspacing="1" style="width:500px;">
             <tbody>
@@ -488,7 +1236,7 @@
             </tbody>
         </table>
 
-        <p>Please describe the advocacy activities that your Member Association has undertaken to influence the government to set and/or deliver country-level targets 3.1, 3.3, 3.7 and/or 5.6, and the results achieved.&nbsp;</p>
+        <p><span keyword="key64">Please describe the advocacy activities that your Member Association has undertaken to influence the government to set and/or deliver country-level targets 3.1, 3.3, 3.7 and/or 5.6, and the results achieved.&nbsp;</span></p>
 
         <p><input id="qG8GjL13XDA-X66r2y4EuwS-val" name="entryfield" title="Adv SDG tracking- Describe activity" value="[ Adv SDG tracking- Describe activity ]" /></p>
     </div>
@@ -497,18 +1245,18 @@
         <table border="1" cellpadding="1" cellspacing="1" style="width:500px;">
             <tbody>
             <tr>
-                <td colspan="2" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);">Please provide details of the number of clients who would recomment your service</td>
+                <td colspan="2" style="background-color: rgb(105, 137, 225); border-color: rgb(0, 0, 0);"><span keyword="key113">Please provide details of the number of clients who would recomment your service</span></td>
             </tr>
             <tr>
-                <td>Number of clients who responded &#39;Yes&#39; to the question &quot;Would you recomment this facility to your family member or friend?&quot;</td>
+                <td><span keyword="key114">Number of clients who responded &#39;Yes&#39; to the question &quot;Would you recomment this facility to your family member or friend?&quot;</span></td>
                 <td>&nbsp;<input id="lhqBqXUGJdH-X66r2y4EuwS-val" name="entryfield" title="GI - Number of service users surveyed who responded ‘Yes’ to the question “Would you recommend this facility to a family member or friend”" value="[ GI - Number of service users surveyed who responded ‘Yes’ to the question “Would you recommend this facility to a family member or friend” ]" /></td>
             </tr>
             <tr>
-                <td>Total number of clients surveyed&nbsp;</td>
+                <td><span keyword="key115">Total number of clients surveyed&nbsp;</span></td>
                 <td><input id="ci9PEd2V7tX-X66r2y4EuwS-val" name="entryfield" title="GI - TOTAL number of service users surveyed" value="[ GI - TOTAL number of service users surveyed ]" /></td>
             </tr>
             <tr>
-                <td>Client satisfaction score</td>
+                <td><span keyword="key116">Client satisfaction score</span></td>
                 <td><input id="indicatorg49pBlWth9a" indicatorid="g49pBlWth9a" name="indicator" readonly="readonly" title="Client Satisfaction - %" value="[ Client Satisfaction - % ]" /></td>
             </tr>
             </tbody>
