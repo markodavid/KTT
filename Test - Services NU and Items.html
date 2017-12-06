@@ -49,6 +49,174 @@
 
             });
 
+            // ==============================================================================================
+            // Translation
+            // ==============================================================================================
+
+            function Translation()
+            {
+                var me = this;
+
+                me._queryURL_User_Language = "../api/me/user-account";
+                me.tabDivTag = $( "#tabs" );
+
+                me.performSetup = function( returnFunc ) {
+
+                    $.ajax({
+                        type: "GET"
+                        ,dataType: "json"
+                        ,url: me._queryURL_User_Language
+                        ,async: true
+                        ,success: function( json )
+                        {
+                            // Get ui-locale which is selected from current user
+                            var userUiLocale = json.settings.keyUiLocale;
+                            if( userUiLocale === undefined )
+                            {
+                                userUiLocale = "en";
+                            }
+
+                            // Do UI translation
+                            me.translate( userUiLocale );
+
+                            returnFunc();
+                        }
+                    });
+                }
+
+                me.keywords =
+                {
+                    // Spanish
+                    "es": {
+                        "key1" : "Servicio"
+                        ,"key2" : ""
+                        ,"key3a" : "100-Asesoramiento anticonceptivo"
+                        ,"key3b" : "110-Anticonceptivos SARC"
+                        ,"key3c" : "120-Anticonceptivos LARC"
+                        ,"key3d" : "130-Anticonceptivos permanentes"
+                        ,"key3e" : "140-Aborto"
+                        ,"key3f" : "150-Ginecología"
+                        ,"key3g" : "160-Cancer cervical"
+                        ,"key3h" : "170-HIV / AIDS"
+                        ,"key3i" : "180-STI / RTI"
+                        ,"key3j" : "190-Obstetricia"
+                        ,"key3k" : "200-Pediatría"
+                        ,"key3l" : "210-Urología"
+                        ,"key3m" : "220-Especializado SRH"
+                        ,"key3n" : "230-Subfertilidad"
+                        ,"key3o" : "240-GBV"
+                        ,"key3p" : "250-SRH Otro"
+                        ,"key3q" : "Total estimado de clientes"
+                        ,"key3r" : "Total servicios de SSR (0-24 yrs)"
+                        ,"key3s" : "Total servicios de SRH (0-99 yrs)"
+                        ,"key4" : "Desglose por canal"
+                        ,"key5" : "Ser"
+                        ,"key6" : "Ref"
+                        ,"key7" : "Var"
+                        ,"key8" : "Qty"
+                        ,"key9" : "Periodo"
+                        ,"key10" : "REF"
+                        ,"key11" : "Total"
+                        ,"key12" : "OU - Canales/ Datos"
+                        ,"key13" : "SRV"
+                        ,"key14" : "Explicación de la variación"
+                        ,"key15" : "Explique por qué la variación"
+                        ,"key16" : "Cierre / apertura de la clínica(s)"
+                        ,"key17" : "Calidad de captura de datos"
+                        ,"key18" : "Cambio de contexto político"
+                        ,"key19" : "Cambios en los recursos del sector público"
+                        ,"key20" : "Finalización de la financiación de proyectos restringidos"
+                        ,"key21" : "Barreras relacionadas con el clima"
+                        ,"key22" : "Otro"
+                        ,"key23" : "Items"
+                        ,"key24" : "300-Anticonceptivos orales"
+                        ,"key25" : "310-Injectables"
+                        ,"key26" : "320-Implantes"
+                        ,"key27" : "330-Patch/ring"
+                        ,"key28" : "340-Condonoes masculinos"
+                        ,"key29" : "350-Condonoes femeninos"
+                        ,"key30" : "360-Diafragma/cervical"
+                        ,"key31" : "370-IUD"
+                        ,"key32" : "380-EC Pills"
+                        ,"key33" : "390-EC IUD"
+                    }
+                    , "en": {
+                    "key1" : "Service"
+                    ,"key2" : ""
+                    ,"key3a" : "100-Contraceptive counseling"
+                    ,"key3b" : "110-Contraceptives SARC"
+                    ,"key3c" : "120-Contraceptives LARC"
+                    ,"key3d" : "130-Contraceptives permanent"
+                    ,"key3e" : "140-Abortion"
+                    ,"key3f" : "150-Gynecology"
+                    ,"key3g" : "160-Cervical cancer"
+                    ,"key3h" : "170-HIV / AIDS"
+                    ,"key3i" : "180-STI / RTI"
+                    ,"key3j" : "190-Obstetrics"
+                    ,"key3k" : "200-Paediatrics"
+                    ,"key3l" : "210-Urology"
+                    ,"key3m" : "220-Specialised SRH"
+                    ,"key3n" : "230-Subfertility"
+                    ,"key3o" : "240-GBV"
+                    ,"key3p" : "250-SRH Other"
+                    ,"key3q" : "Estimated total clients"
+                    ,"key3r" : "Total SRH services (0-24 yrs)"
+                    ,"key3s" : "Total SRH services (0-99 yrs)"
+                    ,"key4" : "Breakdown by channel"
+                    ,"key5" : "Ser"
+                    ,"key6" : "Ref"
+                    ,"key7" : "Var"
+                    ,"key8" : "Qty"
+                    ,"key9" : "Period"
+                    ,"key10" : "REF"
+                    ,"key11" : "Total"
+                    ,"key12" : "OU - Channels/ Data"
+                    ,"key13" : "SRV"
+                    ,"key14" : "Explanation for the variance"
+                    ,"key15" : "Explain why the variance"
+                    ,"key16" : "Closing/opening of clinic(s)"
+                    ,"key17" : "Data capture quality"
+                    ,"key18" : "Political context change"
+                    ,"key19" : "Public sector resources change"
+                    ,"key20" : "Restricted project funding ended/began"
+                    ,"key21" : "Weather-related barriers"
+                    ,"key22" : "Other"
+                    ,"key23" : "Items"
+                    ,"key24" : "300-Oral contraceptives"
+                    ,"key25" : "310-Injectables"
+                    ,"key26" : "320-Implants"
+                    ,"key27" : "330-Patch/ring"
+                    ,"key28" : "340-Male condoms"
+                    ,"key29" : "350-Female condoms"
+                    ,"key30" : "360-Diaphragm/cervical"
+                    ,"key31" : "370-IUD"
+                    ,"key32" : "380-EC Pills"
+                    ,"key33" : "390-EC IUD"
+                }
+                };
+
+                me.translate = function( uiLocale ){
+
+
+                    me.tabDivTag.find( "span[keyword]" ).each( function()
+                    {
+                        var key = $( this ).attr( "keyword" );
+                        var transValue = me.translateKey( uiLocale, key );
+                        if( transValue !== undefined )
+                        {
+                            $( this ).html( transValue );
+                        }
+
+                    });
+
+                };
+
+                me.translateKey = function( lang, key ){
+                    if( me.keywords[lang] == undefined ) return undefined;
+                    return me.keywords[lang][key];
+                };
+
+            }
 
         </script>
         <style>
@@ -58,7 +226,7 @@
                 width: 3000px;
             }
             tbody {
-                height: 900px;
+                height: 400px;
                 display: inline-block;
                 width: 1900px;
                 overflow-x: hidden;
@@ -90,7 +258,7 @@
                     </td>
                 </tr>
                 <tr height="19">
-                    <td colspan="3" height="19" style="background-color: rgb(51, 153, 204); border-color: rgb(0, 0, 0); width: 120px;">
+                    <td colspan="3" height="19" style="background-color: rgb(51, 153, 204); border-color: rgb(0, 0, 0); width: 130px;">
                         <h2 style="text-align: center;"><strong>Services</strong></h2>
                     </td>
                     <td colspan="2" style="background-color: rgb(51, 204, 204); border-color: rgb(0, 0, 0); width: 120px;">
@@ -107,7 +275,7 @@
                     <td colspan="2" style="background-color: rgb(119, 119, 119); border-color: rgb(0, 0, 0);" width="128"><strong><span style="color:#ffffff;">FTUs as % of consultations</span></strong></td>
                 </tr>
                 <tr height="20">
-                    <th height="20" style="background-color: rgb(170, 170, 170); width: 177px;">&nbsp;</th>
+                    <th height="20" style="background-color: rgb(170, 170, 170); width: 210px;">&nbsp;</th>
                     <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>0-24</strong></th>
                     <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>25+</strong></th>
                     <th style="background-color: rgb(170, 170, 170); width: 140px;"><strong>0-24</strong></th>
@@ -1334,4 +1502,3 @@
             </table>
         </div>
     </div>
-
